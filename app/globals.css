@@ -197,6 +197,20 @@
     background-clip: text;
     color: transparent;
   }
+  
+  /* Enhanced card effects */
+  .card-hover {
+    @apply transition-all duration-500 ease-in-out transform;
+  }
+  
+  .card-hover:hover {
+    @apply -translate-y-1 shadow-xl;
+  }
+  
+  /* Smooth transitions for interactive elements */
+  .smooth-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -219,4 +233,15 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #063c28;
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+  .responsive-padding {
+    @apply p-3;
+  }
+  
+  .responsive-text {
+    @apply text-sm;
+  }
 }

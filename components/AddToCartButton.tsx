@@ -28,7 +28,7 @@ const AddToCartButton = ({ product, className }: Props) => {
       toast.error("Can not add more than available stock");
     }
   };
-  
+
   return (
     <div className="w-full h-12 flex items-center">
       {itemCount ? (
@@ -50,15 +50,15 @@ const AddToCartButton = ({ product, className }: Props) => {
           onClick={handleAddToCart}
           disabled={isOutOfStock}
           className={cn(
-            "w-full flex items-center justify-center gap-2 font-semibold tracking-wide text-white hoverEffect transition-all duration-300",
-            isOutOfStock 
-              ? "bg-gray-400 cursor-not-allowed" 
-              : "bg-shop_dark_green hover:bg-shop_btn_dark_green shadow-md hover:shadow-lg",
+            "w-full flex items-center justify-center gap-2 font-medium tracking-wide text-white transition-all duration-300 rounded-md",
+            isOutOfStock
+              ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+              : "bg-black hover:bg-gray-800 text-white shadow-none hover:shadow-sm",
             className
           )}
         >
-          <ShoppingBag size={18} />
-          <span>{isOutOfStock ? "Out of Stock" : "Add to Cart"}</span>
+          {/* <ShoppingBag size={16} /> Icon removed for cleaner look, or keep it if preferred. Let's keep it but smaller? No, minimal usually means text only or icon only. Let's keep text "Add to cart" as per image usually. */}
+          <span className="text-xs uppercase font-bold">{isOutOfStock ? "Out of Stock" : "Add to Cart"}</span>
         </Button>
       )}
     </div>
