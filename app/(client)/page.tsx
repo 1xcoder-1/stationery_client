@@ -13,15 +13,17 @@ const Home = async () => {
   const categories = await getCategories(6);
 
   return (
-    <Container className="bg-shop-light-pink">
-      <HomeBanner />
-      <FeatureSection />
-      <ProductGrid />
-      <HomeCategories categories={categories} />
-      <ShopByBrands />
-      <LatestBlog />
-      <HomeFAQs />
-    </Container>
+    <div className="bg-[#F9FAFB] min-h-screen">
+      <Container>
+        <HomeBanner />
+        <FeatureSection />
+        <ProductGrid />
+        <HomeCategories categories={categories} />
+        <ShopByBrands />
+        <LatestBlog />
+        <HomeFAQs />
+      </Container>
+    </div>
   );
 };
 

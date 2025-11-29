@@ -73,14 +73,14 @@ const ContactPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <Container className="py-16 md:py-24">
+      <Container className="py-16 md:py-18">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16 md:mb-24"
         >
-          <h1 className="text-5xl md:text-7xl font-bold text-black tracking-tight">
+          <h1 className="text-6xl md:text-8xl font-bold text-black tracking-tight">
             Contact Now
           </h1>
         </motion.div>
@@ -111,7 +111,7 @@ const ContactPage = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full py-3 px-0 border-0 border-b border-gray-200 rounded-none focus:border-black focus:ring-0 text-lg placeholder:text-gray-400 transition-colors bg-transparent shadow-none"
+                  className="w-full py-3 px-0 border-0 border-b border-gray-200 rounded-none focus:border-black focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-lg placeholder:text-gray-400 transition-colors bg-transparent shadow-none"
                 />
               </div>
 
@@ -129,7 +129,7 @@ const ContactPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full py-3 px-0 border-0 border-b border-gray-200 rounded-none focus:border-black focus:ring-0 text-lg placeholder:text-gray-400 transition-colors bg-transparent shadow-none"
+                  className="w-full py-3 px-0 border-0 border-b border-gray-200 rounded-none focus:border-black focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-lg placeholder:text-gray-400 transition-colors bg-transparent shadow-none"
                 />
               </div>
 
@@ -147,7 +147,7 @@ const ContactPage = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full py-3 px-0 border-0 border-b border-gray-200 rounded-none focus:border-black focus:ring-0 text-lg placeholder:text-gray-400 transition-colors bg-transparent shadow-none resize-none"
+                  className="w-full py-3 px-0 border-0 border-b border-gray-200 rounded-none focus:border-black focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-lg placeholder:text-gray-400 transition-colors bg-transparent shadow-none resize-none"
                 />
               </div>
 
@@ -175,7 +175,7 @@ const ContactPage = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative h-[400px] lg:h-[500px] w-full rounded-[2.5rem] overflow-hidden shadow-2xl"
+            className="relative h-[520px] lg:h-[570px] w-full rounded-[1rem] overflow-hidden shadow-2xl"
           >
             <Image
               src={contact_hero}

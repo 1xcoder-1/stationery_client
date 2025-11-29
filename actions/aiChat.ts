@@ -6,7 +6,7 @@ export async function getAIResponse(userMessage: string) {
   try {
     // Check if API key is available
     const apiKey = process.env.GEMINI_API_KEY;
-    
+
     if (!apiKey) {
       return {
         success: false,
@@ -15,12 +15,12 @@ export async function getAIResponse(userMessage: string) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    
+
     // Use the correct model name (gemini-1.5-flash is the stable version)
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-    
-    // Create context about Shopcart
-    const context = `You are an AI assistant for Shopcart, an e-commerce platform. 
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+    // Create context about Doodle Blast
+    const context = `You are an AI assistant for Doodle Blast, an e-commerce platform. 
     You can help with questions about:
     1. Products and categories
     2. Orders and shipping
@@ -28,21 +28,21 @@ export async function getAIResponse(userMessage: string) {
     4. Account management
     5. General shopping assistance
     
-    Keep your responses concise, helpful, and focused only on Shopcart-related topics. 
-    Do not discuss topics unrelated to Shopcart.
+    Keep your responses concise, helpful, and focused only on Doodle Blast-related topics. 
+    Do not discuss topics unrelated to Doodle Blast.
     
     User's question: ${userMessage}`;
-    
+
     const result = await model.generateContent(context);
     const response = await result.response;
-    
+
     return {
       success: true,
       message: response.text()
     };
   } catch (error: any) {
     console.error("Error calling Gemini API:", error);
-    
+
     // Provide more specific error messages
     if (error.message && error.message.includes("404")) {
       return {

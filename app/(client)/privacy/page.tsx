@@ -2,9 +2,7 @@
 
 import Container from "@/components/Container";
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Shield, Lock, User, Info } from "lucide-react";
+import { Shield, Lock, User, Info, FileText, Eye, Share2, Bell } from "lucide-react";
 import { motion } from "framer-motion";
 
 const PrivacyPage = () => {
@@ -12,7 +10,7 @@ const PrivacyPage = () => {
     {
       id: 1,
       title: "Information We Collect",
-      icon: <User className="w-5 h-5" />,
+      icon: User,
       content: [
         "Account information (name, email, phone number)",
         "Order details for cash on delivery processing",
@@ -23,7 +21,7 @@ const PrivacyPage = () => {
     {
       id: 2,
       title: "How We Use Your Information",
-      icon: <Lock className="w-5 h-5" />,
+      icon: Eye,
       content: [
         "Process and fulfill your cash on delivery orders",
         "Send order confirmations and shipping updates",
@@ -35,7 +33,7 @@ const PrivacyPage = () => {
     {
       id: 3,
       title: "Information Sharing",
-      icon: <Shield className="w-5 h-5" />,
+      icon: Share2,
       content: [
         "Service providers who assist us in operating our business",
         "Shipping partners for delivery purposes",
@@ -45,7 +43,7 @@ const PrivacyPage = () => {
     {
       id: 4,
       title: "Data Security",
-      icon: <Lock className="w-5 h-5" />,
+      icon: Lock,
       content: [
         "We implement industry-standard security measures to protect your personal information",
         "All data is encrypted during transmission and storage",
@@ -55,7 +53,7 @@ const PrivacyPage = () => {
     {
       id: 5,
       title: "Your Rights",
-      icon: <User className="w-5 h-5" />,
+      icon: Shield,
       content: [
         "Access and update your personal information",
         "Request deletion of your personal information",
@@ -66,140 +64,135 @@ const PrivacyPage = () => {
     }
   ];
 
-  // Split sections into two columns
-  const leftColumn = privacySections.slice(0, 3);
-  const rightColumn = privacySections.slice(3, 5);
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 },
+  };
+
+  const stagger = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 py-12">
-      <Container className="py-10">
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+    <div className="bg-gray-50 min-h-screen py-16 md:py-24">
+      <Container>
+        <motion.div
+          initial="initial"
+          animate="animate"
+          variants={stagger}
+          className="space-y-16"
         >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.3 }}
-          >
-            <Badge className="mb-4 bg-shop_light_green/10 text-shop_light_green hover:bg-shop_light_green/20">
-              <Shield className="w-4 h-4 mr-2" />
+          {/* Header */}
+          <motion.div variants={fadeInUp} className="text-center space-y-4">
+            <div className="inline-flex items-center justify-center p-3 bg-shop_light_pink rounded-2xl mb-4">
+              <Shield className="w-8 h-8 text-shop_dark_green" />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight">
               Privacy Policy
-            </Badge>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              We are committed to protecting your personal information and being transparent about how we use it.
+            </p>
+            <p className="text-sm text-gray-500">
+              Last Updated: {new Date().toLocaleDateString()}
+            </p>
           </motion.div>
-          <motion.h1 
-            className="text-4xl font-bold text-gray-900 mb-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            Your Privacy Matters
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-gray-600 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-          >
-            We are committed to protecting your personal information and being transparent about how we use it.
-          </motion.p>
-          <motion.p 
-            className="text-gray-500 mt-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-          >
-            <strong>Last Updated:</strong> {new Date().toLocaleDateString()}
-          </motion.p>
-        </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.5 }}
-        >
-          <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold text-gray-900">Privacy Policy</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Left Column */}
-                <div className="space-y-8">
-                  {leftColumn.map((section, index) => (
-                    <motion.div 
+          {/* Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Left Column - Navigation/Summary (Sticky) */}
+            <div className="lg:col-span-4 lg:sticky lg:top-24 h-fit space-y-6">
+              <motion.div variants={fadeInUp} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-300">
+                <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-shop_light_green" />
+                  Table of Contents
+                </h3>
+                <nav className="space-y-2">
+                  {privacySections.map((section) => (
+                    <a
                       key={section.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 * index + 1.1, duration: 0.3 }}
+                      href={`#section-${section.id}`}
+                      className="block p-2 text-gray-600 hover:text-shop_dark_green hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
                     >
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
-                        <span className="mr-3 text-shop_light_green">
-                          {section.icon}
-                        </span>
-                        {section.id}. {section.title}
-                      </h3>
-                      <ul className="space-y-2 mt-2">
-                        {section.content.map((item, itemIndex) => (
-                          <li key={itemIndex} className="flex items-start">
-                            <Info className="w-5 h-5 text-shop_light_green mr-2 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-600">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
+                      {section.id}. {section.title}
+                    </a>
                   ))}
-                </div>
-                
-                {/* Right Column */}
-                <div className="space-y-8">
-                  {rightColumn.map((section, index) => (
-                    <motion.div 
-                      key={section.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 * index + 1.4, duration: 0.3 }}
-                    >
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
-                        <span className="mr-3 text-shop_light_green">
-                          {section.icon}
-                        </span>
-                        {section.id}. {section.title}
-                      </h3>
-                      <ul className="space-y-2 mt-2">
-                        {section.content.map((item, itemIndex) => (
-                          <li key={itemIndex} className="flex items-start">
-                            <Info className="w-5 h-5 text-shop_light_green mr-2 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-600">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  ))}
-                  
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.8, duration: 0.3 }}
+                  <a
+                    href="#section-updates"
+                    className="block p-2 text-gray-600 hover:text-shop_dark_green hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
                   >
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
-                      <span className="mr-3 text-shop_light_green">
-                        <Shield className="w-5 h-5" />
-                      </span>
-                      6. Policy Updates
-                    </h3>
-                    <p className="text-gray-600">
-                      We may update this Privacy Policy from time to time. We will notify you of any changes by posting 
-                      the new Privacy Policy on this page and updating the "Last Updated" date. We encourage you to 
-                      review this Privacy Policy periodically for any changes.
-                    </p>
-                  </motion.div>
+                    6. Policy Updates
+                  </a>
+                </nav>
+              </motion.div>
+
+              <motion.div variants={fadeInUp} className="bg-shop_dark_green text-white p-6 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                <Shield className="w-8 h-8 mb-4 opacity-80" />
+                <h3 className="font-bold text-lg mb-2">Your Data is Safe</h3>
+                <p className="text-white/80 text-sm">
+                  We use industry-standard encryption to protect your personal information at all times.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Right Column - Main Content */}
+            <div className="lg:col-span-8 space-y-8">
+              {privacySections.map((section) => (
+                <motion.div
+                  key={section.id}
+                  id={`section-${section.id}`}
+                  variants={fadeInUp}
+                  className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-shop_light_pink rounded-xl flex items-center justify-center text-shop_dark_green shrink-0">
+                      <section.icon className="w-6 h-6" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      {section.id}. {section.title}
+                    </h2>
+                  </div>
+
+                  <ul className="space-y-4">
+                    {section.content.map((item, index) => (
+                      <li key={index} className="flex items-start gap-3 group">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-shop_light_green group-hover:scale-125 transition-transform" />
+                        <span className="text-gray-600 leading-relaxed group-hover:text-gray-900 transition-colors">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+
+              {/* Policy Updates Section */}
+              <motion.div
+                id="section-updates"
+                variants={fadeInUp}
+                className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-shop_light_pink rounded-xl flex items-center justify-center text-shop_dark_green shrink-0">
+                    <Bell className="w-6 h-6" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    6. Policy Updates
+                  </h2>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+                <p className="text-gray-600 leading-relaxed pl-16">
+                  We may update this Privacy Policy from time to time. We will notify you of any changes by posting
+                  the new Privacy Policy on this page and updating the "Last Updated" date. We encourage you to
+                  review this Privacy Policy periodically for any changes.
+                </p>
+              </motion.div>
+            </div>
+          </div>
         </motion.div>
       </Container>
     </div>
