@@ -182,13 +182,13 @@
       opacity: 0;
     }
   }
-  
+
   .glass-effect {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
-  
+
   .gradient-border {
     position: relative;
     border: none;
@@ -197,19 +197,36 @@
     background-clip: text;
     color: transparent;
   }
-  
+
   /* Enhanced card effects */
   .card-hover {
     @apply transition-all duration-500 ease-in-out transform;
   }
-  
+
   .card-hover:hover {
     @apply -translate-y-1 shadow-xl;
   }
-  
+
   /* Smooth transitions for interactive elements */
   .smooth-transition {
     @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Marquee Animation */
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-marquee {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
   }
 }
 
@@ -240,7 +257,7 @@
   .responsive-padding {
     @apply p-3;
   }
-  
+
   .responsive-text {
     @apply text-sm;
   }

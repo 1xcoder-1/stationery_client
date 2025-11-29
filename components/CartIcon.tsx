@@ -11,13 +11,13 @@ const CartIcon = () => {
 
   return (
     <motion.div
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
-      <Link href={"/cart"} className="group relative">
-        <ShoppingBag className="w-6 h-6 text-gray-700 group-hover:text-shop_light_green transition-colors duration-300" />
-        <motion.span 
-          className="absolute -top-2 -right-2 bg-shop_dark_green text-white h-5 w-5 rounded-full text-xs font-bold flex items-center justify-center shadow-md"
+      <Link href={"/cart"} className="group relative block">
+        <ShoppingBag className="w-5 h-5 md:w-6 md:h-6 text-black hover:opacity-80 transition-opacity" />
+        <motion.span
+          className="absolute -top-1.5 -right-1.5 bg-black text-white h-4 w-4 md:h-5 md:w-5 rounded-full text-[10px] md:text-xs font-bold flex items-center justify-center shadow-sm border border-white"
           initial={{ scale: 0 }}
           animate={{ scale: itemCount > 0 ? 1 : 0 }}
           transition={{ type: "spring", stiffness: 300 }}

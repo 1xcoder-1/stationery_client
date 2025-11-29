@@ -8,12 +8,12 @@ const MobileMenu = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   return (
     <>
-      <motion.button 
+      <motion.button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         whileTap={{ scale: 0.9 }}
         className="md:hidden p-1.5 md:p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300"
       >
-        <AlignLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700 hover:text-shop_light_green transition-colors duration-300" />
+        <AlignLeft className="w-6 h-6 text-black hover:opacity-80 transition-opacity" />
       </motion.button>
       <div className="md:hidden">
         <SideMenu

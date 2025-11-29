@@ -8,24 +8,17 @@ const HeaderMenu = () => {
   const pathname = usePathname();
 
   return (
-    <div className="hidden md:flex w-1/3 items-center justify-center gap-2 lg:gap-4 text-sm lg:text-base font-semibold text-gray-800">
-      {headerData?.map((item, index) => (
-        <div
+    <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm lg:text-base font-medium text-gray-600">
+      {headerData?.map((item) => (
+        <Link
           key={item?.title}
-          className="relative group"
-        >
-          <Link
-            href={item?.href}
-            className={`px-2 py-3 transition-all duration-300 flex items-center justify-center whitespace-nowrap ${
-              pathname === item?.href 
-                ? "text-shop_light_green font-bold" 
-                : "text-gray-800 hover:text-shop_light_green"
+          href={item?.href}
+          className={`relative group hover:text-black transition-colors duration-300 ${pathname === item?.href ? "text-black font-semibold" : ""
             }`}
-          >
-            {item?.title}
-          </Link>
-          <div className={`absolute bottom-2 left-0 right-0 w-0 h-0.5 bg-shop_light_green mx-auto transition-all duration-300 ${pathname === item?.href ? "w-full" : "group-hover:w-full"}`} />
-        </div>
+        >
+          {item?.title}
+          <span className={`absolute left-0 bottom-0 w-full h-[2px] bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out origin-left ${pathname === item?.href ? "scale-x-100" : ""}`} />
+        </Link>
       ))}
     </div>
   );

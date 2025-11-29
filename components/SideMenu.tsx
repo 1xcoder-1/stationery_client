@@ -15,7 +15,7 @@ interface SidebarProps {
 const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const pathname = usePathname();
   const sidebarRef = useOutsideClick<HTMLDivElement>(onClose);
-  
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -38,15 +38,15 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
           >
             <div className="p-4 sm:p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
-                <Link href="/" className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-shop_dark_green to-shop_light_green bg-clip-text text-transparent">
-                  Doodle Blast
+                <Link href="/" className="text-xl sm:text-2xl font-bold text-black tracking-tighter">
+                  SNIKEI
                 </Link>
                 <motion.button
                   onClick={onClose}
                   whileTap={{ scale: 0.9 }}
                   className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
                 >
-                  <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 hover:text-shop_light_green" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5 text-black hover:opacity-70" />
                 </motion.button>
               </div>
             </div>
@@ -63,11 +63,10 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
                       <Link
                         href={item?.href}
                         onClick={onClose}
-                        className={`flex items-center px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 ${
-                          pathname === item?.href
-                            ? "bg-shop_light_green/10 text-shop_light_green font-semibold"
-                            : "text-gray-700 hover:bg-gray-100 hover:text-shop_light_green"
-                        }`}
+                        className={`flex items-center px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 ${pathname === item?.href
+                            ? "bg-black text-white font-semibold"
+                            : "text-gray-700 hover:bg-gray-100 hover:text-black"
+                          }`}
                       >
                         <span>{item?.title}</span>
                       </Link>

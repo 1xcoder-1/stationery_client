@@ -32,7 +32,7 @@ const SearchBar = () => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <div className="cursor-pointer">
-          <Search className="w-5 h-5 hover:text-shop_light_green hoverEffect" />
+          <Search className="w-5 h-5 md:w-6 md:h-6 text-black hover:opacity-80 transition-opacity" />
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">

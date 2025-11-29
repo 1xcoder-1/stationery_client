@@ -40,7 +40,7 @@ const Shop = ({ categories, brands }: Props) => {
         minPrice = min;
         maxPrice = max;
       }
-      
+
       let query = `
       *[_type == 'product' 
         && (!defined($selectedCategory) || references(*[_type == "category" && slug.current == $selectedCategory]._id))
@@ -51,7 +51,7 @@ const Shop = ({ categories, brands }: Props) => {
         ...,"categories": categories[]->title
       }
     `;
-    
+
       // If there's a search query, modify the query to include search functionality
       if (searchQuery) {
         query = `
@@ -83,7 +83,7 @@ const Shop = ({ categories, brands }: Props) => {
   useEffect(() => {
     fetchProducts();
   }, [selectedCategory, selectedBrand, selectedPrice, searchQuery]);
-  
+
   return (
     <div className="border-t">
       <Container className="mt-5">
@@ -96,18 +96,18 @@ const Shop = ({ categories, brands }: Props) => {
               selectedBrand !== null ||
               selectedPrice !== null ||
               searchQuery !== null) && (
-              <button
-                onClick={() => {
-                  setSelectedCategory(null);
-                  setSelectedBrand(null);
-                  setSelectedPrice(null);
-                  // Note: We can't directly modify URL params, this would require a router push
-                }}
-                className="text-shop_dark_green underline text-sm mt-2 font-medium hover:text-darkRed hoverEffect"
-              >
-                Reset Filters
-              </button>
-            )}
+                <button
+                  onClick={() => {
+                    setSelectedCategory(null);
+                    setSelectedBrand(null);
+                    setSelectedPrice(null);
+                    // Note: We can't directly modify URL params, this would require a router push
+                  }}
+                  className="text-shop_dark_green underline text-sm mt-2 font-medium hover:text-darkRed hoverEffect"
+                >
+                  Reset Filters
+                </button>
+              )}
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-5 border-t border-t-shop_dark_green/50">
@@ -137,14 +137,14 @@ const Shop = ({ categories, brands }: Props) => {
                   </p>
                 </div>
               ) : products?.length > 0 ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
                   {products?.map((product) => (
                     <ProductCard key={product?._id} product={product} />
                   ))}
                 </div>
               ) : (
-                <NoProductAvailable 
-                  className="bg-white mt-0" 
+                <NoProductAvailable
+                  className="bg-white mt-0"
                   selectedTab={searchQuery ? `search "${searchQuery}"` : "selected filters"}
                 />
               )}
