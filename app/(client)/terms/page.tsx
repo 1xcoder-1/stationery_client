@@ -160,7 +160,7 @@ const TermsPage = () => {
                 If you have any questions about our Terms & Conditions, please don't hesitate to contact our support team.
               </p>
               <Link href="/contact">
-                <button className="px-8 py-3 bg-white text-shop_dark_green font-bold rounded-xl hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
+                <button className="px-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
                   Contact Support
                 </button>
               </Link>

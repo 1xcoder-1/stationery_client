@@ -14,20 +14,25 @@ import { Product } from "@/sanity.types";
 const ProductGrid = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedTab, setSelectedTab] = useState(productType[0]?.title || "");
+  const [selectedTab, setSelectedTab] = useState<string>(productType[0]?.title || "Gadget");
   const query = `*[_type == "product" && variant == $variant] | order(name asc){
-  ...,"categories": categories[]->title
+  ...,
+  "categories": categories[]->title
 }`;
-  const params = { variant: selectedTab.toLowerCase() };
+  const params = { variant: productType.find(type => type.title === selectedTab)?.value || "gadget" };
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await client.fetch(query, params);
-        setProducts(await response);
+        // Ensure we have a valid variant parameter
+        const variantValue = productType.find(type => type.title === selectedTab)?.value || "gadget";
+        const fetchParams = { variant: variantValue };
+        const response = await client.fetch(query, fetchParams);
+        setProducts(response);
       } catch (error) {
         console.log("Product fetching Error", error);
+        setProducts([]); // Set empty array on error
       } finally {
         setLoading(false);
       }
@@ -36,7 +41,7 @@ const ProductGrid = () => {
   }, [selectedTab]);
 
   return (
-    <Container className="flex flex-col lg:px-0 my-10">
+    <Container className="flex flex-col my-10">
       <HomeTabbar selectedTab={selectedTab} onTabSelect={setSelectedTab} />
       {loading ? (
         <div className="flex flex-col items-center justify-center py-10 min-h-80 space-y-4 text-center bg-gray-100 rounded-lg w-full mt-10">
@@ -46,21 +51,21 @@ const ProductGrid = () => {
           </motion.div>
         </div>
       ) : products?.length ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 mt-10">
-          <>
-            {products?.map((product) => (
-              <AnimatePresence key={product?._id}>
-                <motion.div
-                  layout
-                  initial={{ opacity: 0.2 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <ProductCard key={product?._id} product={product} />
-                </motion.div>
-              </AnimatePresence>
-            ))}
-          </>
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
+          {products?.map((product, index) => (
+            <AnimatePresence key={product?._id}>
+              <motion.div
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+              >
+                <ProductCard product={product} />
+              </motion.div>
+            </AnimatePresence>
+          ))}
         </div>
       ) : (
         <NoProductAvailable selectedTab={selectedTab} />

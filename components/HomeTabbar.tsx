@@ -1,6 +1,8 @@
 "use client";
 import { productType } from "@/constants/data";
 import Link from "next/link";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 interface Props {
   selectedTab: string;
   onTabSelect: (tab: string) => void;
@@ -12,19 +14,23 @@ const HomeTabbar = ({ selectedTab, onTabSelect }: Props) => {
       <div className="flex items-center gap-1.5 text-sm font-semibold">
         <div className="flex items-center gap-1.5 md:gap-3">
           {productType?.map((item) => (
-            <button
-              onClick={() => onTabSelect(item?.title)}
-              key={item?.title}
-              className={`border border-shop_light_green/30 px-4 py-1.5 md:px-6 md:py-2 rounded-full hover:bg-shop_light_green hover:border-shop_light_green hover:text-white hoverEffect ${selectedTab === item?.title ? "bg-shop_light_green text-white border-shop_light_green" : "bg-shop_light_green/10"}`}
+            <Button
+              key={item.title}
+              variant={selectedTab === item.title ? "default" : "outline"}
+              onClick={() => onTabSelect(item.title)}
+              className="rounded-full px-4 md:px-6 h-8 md:h-9"
             >
-              {item?.title}
-            </button>
+              {item.title}
+            </Button>
           ))}
         </div>
       </div>
       <Link
         href={"/shop"}
-        className="border border-darkColor px-4 py-1 rounded-full hover:bg-shop_light_green hover:text-white hover:border-shop_light_green hoverEffect"
+        className={cn(
+          buttonVariants({ variant: "outline", size: "sm" }),
+          "rounded-full px-4"
+        )}
       >
         See all
       </Link>

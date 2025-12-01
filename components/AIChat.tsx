@@ -88,8 +88,7 @@ const AIChat = () => {
       {/* Floating AI Chat Button with enhanced animation */}
       <motion.button
         whileHover={{
-          scale: 1.05,
-          boxShadow: "0 20px 35px rgba(0,0,0,0.2)"
+          scale: 1.1,
         }}
         whileTap={{ scale: 0.95 }}
         initial={{ y: 0 }}
@@ -106,8 +105,6 @@ const AIChat = () => {
         className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-shop_dark_green text-white shadow-2xl flex items-center justify-center z-50 group overflow-hidden border-4 border-white/20 backdrop-blur-sm"
         aria-label="Open Doodle Blast AI"
       >
-        <div className="absolute inset-0 bg-gradient-to-tr from-shop_dark_green via-shop_light_green to-shop_orange opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
         <motion.div
           className="relative z-10"
           animate={{

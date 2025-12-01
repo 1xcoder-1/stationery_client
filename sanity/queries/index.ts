@@ -151,6 +151,20 @@ const getOthersBlog = async (slug: string, quantity: number) => {
     return [];
   }
 };
+const getNewArrivals = async () => {
+  try {
+    const query = `*[_type == 'product' && isNewArrival == true] | order(_createdAt desc) [0...8] {
+      ...,
+      "categories": categories[]->title
+    }`;
+    const { data } = await sanityFetch({ query });
+    return data ?? [];
+  } catch (error) {
+    console.log("Error fetching new arrivals:", error);
+    return [];
+  }
+};
+
 export {
   getCategories,
   getAllBrands,
@@ -163,4 +177,5 @@ export {
   getSingleBlog,
   getBlogCategories,
   getOthersBlog,
+  getNewArrivals,
 };

@@ -80,9 +80,10 @@ const ContactPage = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 md:mb-24"
         >
-          <h1 className="text-6xl md:text-8xl font-bold text-black tracking-tight">
+          <h1 className="text-6xl md:text-8xl font-bold text-black tracking-tight mb-8">
             Contact Now
           </h1>
+          <div className="w-24 h-1.5 bg-black rounded-full mx-auto mb-8"></div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20 items-start">
@@ -93,7 +94,7 @@ const ContactPage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="text-2xl md:text-3xl font-bold text-black mb-10">
-              Send a line about your project
+              Send a Line About Your Project
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-14">

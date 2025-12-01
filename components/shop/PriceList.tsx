@@ -1,7 +1,8 @@
 import React from "react";
-import Title from "../Title";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
+import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 
 const priceArray = [
   { title: "Under $100", value: "0-100" },
@@ -15,39 +16,65 @@ interface Props {
   selectedPrice?: string | null;
   setSelectedPrice: React.Dispatch<React.SetStateAction<string | null>>;
 }
+
 const PriceList = ({ selectedPrice, setSelectedPrice }: Props) => {
   return (
-    <div className="w-full bg-white p-5">
-      <Title className="text-base font-black">Price</Title>
-      <RadioGroup className="mt-2 space-y-1" value={selectedPrice || ""}>
+    <div className="w-full bg-white pb-2">
+      <RadioGroup
+        value={selectedPrice || "all"}
+        onValueChange={(value) => {
+          setSelectedPrice(value === "all" ? null : value);
+        }}
+        className="space-y-0"
+      >
+        {/* All Prices Option */}
+        <div
+          onClick={() => setSelectedPrice(null)}
+          className="flex items-center justify-between py-3 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors px-2 group"
+        >
+          <Label
+            className={cn(
+              "cursor-pointer text-base group-hover:text-shop_dark_green transition-colors",
+              !selectedPrice ? "font-semibold text-black" : "font-medium text-gray-600"
+            )}
+          >
+            All Prices
+          </Label>
+          <div className="relative flex items-center justify-center w-5 h-5">
+            <RadioGroupItem value="all" id="all" className="peer sr-only" />
+            {!selectedPrice ? (
+              <Check className="w-5 h-5 text-black" />
+            ) : (
+              <div className="w-5 h-5 rounded-full border border-gray-300 group-hover:border-shop_dark_green" />
+            )}
+          </div>
+        </div>
+
         {priceArray?.map((price, index) => (
           <div
             key={index}
             onClick={() => setSelectedPrice(price?.value)}
-            className="flex items-center space-x-2 hover:cursor-pointer"
+            className="flex items-center justify-between py-3 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors px-2 group"
           >
-            <RadioGroupItem
-              value={price?.value}
-              id={price?.value}
-              className="rounded-sm"
-            />
             <Label
               htmlFor={price.value}
-              className={`${selectedPrice === price?.value ? "font-semibold text-shop_dark_green" : "font-normal"}`}
+              className={cn(
+                "cursor-pointer text-base group-hover:text-shop_dark_green transition-colors",
+                selectedPrice === price?.value
+                  ? "font-semibold text-black"
+                  : "font-medium text-gray-600"
+              )}
             >
               {price?.title}
             </Label>
+            <RadioGroupItem
+              value={price?.value}
+              id={price?.value}
+              className="data-[state=checked]:border-black data-[state=checked]:text-black border-gray-300"
+            />
           </div>
         ))}
       </RadioGroup>
-      {selectedPrice && (
-        <button
-          onClick={() => setSelectedPrice(null)}
-          className="text-sm font-medium mt-2 underline underline-offset-2 decoration-[1px] hover:text-shop_dark_green hoverEffect"
-        >
-          Reset selection
-        </button>
-      )}
     </div>
   );
 };

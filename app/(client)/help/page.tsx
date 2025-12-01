@@ -1,3 +1,4 @@
+
 "use client";
 
 import Container from "@/components/Container";
@@ -5,6 +6,7 @@ import React from "react";
 import { Mail, Phone, MessageCircle, HelpCircle, ChevronRight, MessageSquare, Clock, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const HelpPage = () => {
   const faqs = [
@@ -185,9 +187,11 @@ const HelpPage = () => {
               Our support team is just a click away. We usually respond within a few hours.
             </p>
           </div>
-          <Button className="bg-white text-black hover:bg-white px-8 py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
-            Contact Support <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
+          <Link href="/contact">
+            <Button className="bg-white text-black hover:bg-white px-8 py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+              Contact Support <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+          </Link>
         </motion.div>
       </Container>
     </div>

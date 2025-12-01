@@ -139,7 +139,7 @@ const HeroSlider = () => {
                 >
                   <span className="relative z-10">{slides[currentIndex].ctaText}</span>
                   <ArrowRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+
                 </Link>
                 <div className="hidden md:flex items-center gap-2 px-6 py-4 bg-white/60 backdrop-blur-md rounded-lg font-bold text-gray-900 shadow-sm">
                   <ShoppingBag className="w-5 h-5" />
@@ -200,7 +200,7 @@ const HeroSlider = () => {
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? "w-12 bg-black" : "w-4 bg-black/20 hover:bg-black/40"
+            className={`h-1.5 rounded-xl transition-all duration-500 ${idx === currentIndex ? "w-12 bg-black" : "w-4 bg-black/20 hover:bg-black/40"
               }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

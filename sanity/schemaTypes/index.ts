@@ -15,7 +15,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     blockContentType,
     productType,
     orderType,
-    brandType,
     blogType,
     blogCategoryType,
     authorType,

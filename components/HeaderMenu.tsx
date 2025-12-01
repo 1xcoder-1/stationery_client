@@ -25,3 +25,4 @@ const HeaderMenu = () => {
 };
 
 export default HeaderMenu;
+// Force re-render to fix hydration mismatch due to data.ts update

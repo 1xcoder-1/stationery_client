@@ -59,11 +59,13 @@ export const productType = defineType({
       validation: (Rule) => Rule.min(0),
     }),
     defineField({
-      name: "brand",
-      title: "Brand",
-      type: "reference",
-      to: { type: "brand" },
+      name: "rating",
+      title: "Rating",
+      type: "number",
+      description: "Rating of the product (1-5)",
+      validation: (Rule) => Rule.min(1).max(5),
     }),
+
 
     defineField({
       name: "status",
@@ -95,6 +97,13 @@ export const productType = defineType({
       title: "Featured Product",
       type: "boolean",
       description: "Toggle to Featured on or off",
+      initialValue: false,
+    }),
+    defineField({
+      name: "isNewArrival",
+      title: "New Arrival",
+      type: "boolean",
+      description: "Toggle to show in New Arrivals section",
       initialValue: false,
     }),
   ],
