@@ -1,23 +1,24 @@
-import { type SchemaTypeDefinition } from "sanity";
-import { categoryType } from "./categoryType";
-import { blockContentType } from "./blockContentType";
-import { productType } from "./productType";
-import { orderType } from "./orderType";
-import { brandType } from "./brandTypes";
-import { blogType } from "./blogType";
-import { blogCategoryType } from "./blogCategoryType";
 import { authorType } from "./authorType";
+import { blockContentType } from "./blockContentType";
+import { blogCategoryType } from "./blogCategoryType";
+import { blogType } from "./blogType";
+import { categoryType } from "./categoryType";
+import { orderType } from "./orderType";
+import { productType } from "./productType";
 import { addressType } from "./addressType";
 
-export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [
-    categoryType,
-    blockContentType,
-    productType,
-    orderType,
-    blogType,
-    blogCategoryType,
-    authorType,
-    addressType,
-  ],
+export const schemaTypes = [
+  productType,
+  categoryType,
+  orderType,
+  blogType,
+  authorType,
+  blogCategoryType,
+  blockContentType,
+  addressType,
+];
+
+// Export the schema object as expected by Sanity config
+export const schema = {
+  types: schemaTypes,
 };

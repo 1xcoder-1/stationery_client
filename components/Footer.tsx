@@ -4,6 +4,9 @@ import Container from "./Container";
 import SocialMedia from "./SocialMedia";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({ subsets: ["latin"] });
 
 const footerNavigation = [
   { title: "Home", href: "/" },
@@ -43,7 +46,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <Link href="/" className="text-3xl font-bold text-[#000000]">
+            <Link href="/" className={`text-3xl font-bold text-[#000000] tracking-tight ${outfit.className}`}>
               Doodle Blast
             </Link>
             <p className="text-gray-600 leading-relaxed max-w-xs">

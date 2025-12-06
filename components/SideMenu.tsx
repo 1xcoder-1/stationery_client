@@ -6,6 +6,11 @@ import { usePathname } from "next/navigation";
 import SocialMedia from "./SocialMedia";
 import { useOutsideClick } from "@/hooks";
 import { motion, AnimatePresence } from "framer-motion";
+import { logo } from "@/images";
+import Image from "next/image";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({ subsets: ["latin"] });
 
 interface SidebarProps {
   isOpen: boolean;
@@ -38,8 +43,13 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
           >
             <div className="p-4 sm:p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
-                <Link href="/" className="text-xl sm:text-2xl font-bold text-black tracking-tighter">
-                  SNIKEI
+                <Link href="/" className="flex items-center gap-2">
+                  <Image src={logo} alt="Logo" width={30} height={30} className="w-8 h-8 object-contain" />
+                  <span
+                    className={`text-2xl sm:text-3xl font-bold text-black ${outfit.className}`}
+                  >
+                    Doodle Blast
+                  </span>
                 </Link>
                 <motion.button
                   onClick={onClose}
@@ -64,8 +74,8 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
                         href={item?.href}
                         onClick={onClose}
                         className={`flex items-center px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 ${pathname === item?.href
-                            ? "bg-black text-white font-semibold"
-                            : "text-gray-700 hover:bg-gray-100 hover:text-black"
+                          ? "bg-black text-white font-semibold"
+                          : "text-gray-700 hover:bg-gray-100 hover:text-black"
                           }`}
                       >
                         <span>{item?.title}</span>

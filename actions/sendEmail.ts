@@ -48,15 +48,15 @@ export async function sendContactEmail(data: EmailData) {
 
     // Use authenticated user's email as reply-to, but keep system email as from
     // This is important for email deliverability - many servers reject emails with unauthorized "from" addresses
-    const fromAddress = data.fromEmail && emailRegex.test(data.fromEmail) 
-      ? data.fromEmail 
+    const fromAddress = data.fromEmail && emailRegex.test(data.fromEmail)
+      ? data.fromEmail
       : data.email;
 
     // Create transporter
     const transporter = nodemailer.createTransport({
       host: EMAIL_HOST,
       port: parseInt(EMAIL_PORT),
-      secure: false, // true for 465, false for other ports
+      secure: parseInt(EMAIL_PORT) === 465,
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,

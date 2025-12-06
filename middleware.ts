@@ -1,4 +1,10 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+
+const isProtectedRoute = createRouteMatcher([
+  '/((?!.*\\..*|_next).*)', // Matches all routes except those with extensions or _next
+  '/(api|trpc)(.*)',
+]);
 
 export default clerkMiddleware();
 

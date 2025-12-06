@@ -5,15 +5,22 @@ import Footer from "@/components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import AIChat from "@/components/AIChat";
 import { Toaster } from "react-hot-toast";
+import LoginNotifier from "@/components/LoginNotifier";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s - Shopcart online store",
-    default: "Shopcart online store",
+    template: "%s - Doodle Blast",
+    default: "Doodle Blast",
   },
-  description: "Shopcart online store, Your one stop shop for all your needs",
+  description: "Discover amazing products at Doodle Blast, blending style and quality to elevate your living spaces.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
+// Force HMR
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,6 +33,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <AIChat />
+        <LoginNotifier />
         <Toaster position="top-right" />
       </div>
     </ClerkProvider>

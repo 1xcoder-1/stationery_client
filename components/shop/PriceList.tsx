@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 
 const priceArray = [
-  { title: "Under $100", value: "0-100" },
-  { title: "$100 - $200", value: "100-200" },
-  { title: "$200 - $300", value: "200-300" },
-  { title: "$300 - $500", value: "300-500" },
-  { title: "Over $500", value: "500-10000" },
+  { title: "Under Rs 100", value: "0-100" },
+  { title: "Rs 100 - Rs 200", value: "100-200" },
+  { title: "Rs 200 - Rs 300", value: "200-300" },
+  { title: "Rs 300 - Rs 500", value: "300-500" },
+  { title: "Over Rs 500", value: "500-1000000" },
 ];
 
 interface Props {

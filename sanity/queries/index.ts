@@ -1,8 +1,6 @@
 import { sanityFetch } from "../lib/live";
 import {
   BLOG_CATEGORIES,
-  BRAND_QUERY,
-  BRANDS_QUERY,
   DEAL_PRODUCTS,
   GET_ALL_BLOG,
   LATEST_BLOG_QUERY,
@@ -30,16 +28,6 @@ const getCategories = async (quantity?: number) => {
     return data;
   } catch (error) {
     console.log("Error fetching categories", error);
-    return [];
-  }
-};
-
-const getAllBrands = async () => {
-  try {
-    const { data } = await sanityFetch({ query: BRANDS_QUERY });
-    return data ?? [];
-  } catch (error) {
-    console.log("Error fetching all brands:", error);
     return [];
   }
 };
@@ -76,20 +64,7 @@ const getProductBySlug = async (slug: string) => {
     return null;
   }
 };
-const getBrand = async (slug: string) => {
-  try {
-    const product = await sanityFetch({
-      query: BRAND_QUERY,
-      params: {
-        slug,
-      },
-    });
-    return product?.data || null;
-  } catch (error) {
-    console.error("Error fetching product by ID:", error);
-    return null;
-  }
-};
+
 const getMyOrders = async (userId: string) => {
   try {
     const orders = await sanityFetch({
@@ -165,17 +140,33 @@ const getNewArrivals = async () => {
   }
 };
 
+const getSimilarProducts = async (categoryId: string, currentProductId: string) => {
+  try {
+    const query = `*[_type == 'product' && references($categoryId) && _id != $currentProductId] | order(_createdAt desc) [0...4] {
+      ...,
+      "categories": categories[]->title
+    }`;
+    const { data } = await sanityFetch({
+      query,
+      params: { categoryId, currentProductId },
+    });
+    return data ?? [];
+  } catch (error) {
+    console.log("Error fetching similar products:", error);
+    return [];
+  }
+};
+
 export {
   getCategories,
-  getAllBrands,
   getLatestBlogs,
   getDealProducts,
   getProductBySlug,
-  getBrand,
   getMyOrders,
   getAllBlogs,
   getSingleBlog,
   getBlogCategories,
   getOthersBlog,
   getNewArrivals,
+  getSimilarProducts,
 };

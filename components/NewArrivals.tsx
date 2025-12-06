@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import Container from "./Container";
 import { cn } from "@/lib/utils";
 import FavoriteButton from "./FavoriteButton";
+import PriceView from "./PriceView";
 
 interface Props {
     products: Product[];
@@ -111,21 +112,11 @@ const NewArrivals = ({ products }: Props) => {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-3">
-                                    <span className="text-lg font-bold text-black">
-                                        ${product?.price?.toFixed(2)} USD
-                                    </span>
-                                    {product?.discount && product.discount > 0 && (
-                                        <span className="text-sm font-medium text-gray-400 line-through">
-                                            $
-                                            {(
-                                                (product?.price || 0) +
-                                                ((product?.price || 0) * product.discount) / 100
-                                            ).toFixed(2)}{" "}
-                                            USD
-                                        </span>
-                                    )}
-                                </div>
+                                <PriceView
+                                    price={product?.price}
+                                    discount={product?.discount}
+                                    className="text-black"
+                                />
                             </div>
                         </motion.div>
                     ))}

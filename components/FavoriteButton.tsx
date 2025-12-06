@@ -1,5 +1,6 @@
 "use client";
 import { Product } from "@/sanity.types";
+import { useUser } from "@clerk/nextjs";
 import useStore from "@/store";
 import { Heart } from "lucide-react";
 import Link from "next/link";
@@ -24,8 +25,14 @@ const FavoriteButton = ({
     setExistingProduct(availableItem || null);
   }, [product, favoriteProduct]);
 
+  const { isSignedIn } = useUser();
+
   const handleFavorite = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
+    if (!isSignedIn) {
+      toast.error("Please login first to add to favorites!");
+      return;
+    }
     if (product?._id) {
       addToFavorite(product).then(() => {
         toast.success(

@@ -15,13 +15,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import * as motion from "framer-motion/client";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface Props {
   categories: Category[];
 }
 const Shop = ({ categories }: Props) => {
+  // Force HMR update
   const searchParams = useSearchParams();
   const categoryParams = searchParams?.get("category");
   const searchQuery = searchParams?.get("search");
@@ -40,7 +41,7 @@ const Shop = ({ categories }: Props) => {
     setLoading(true);
     try {
       let minPrice = 0;
-      let maxPrice = 10000;
+      let maxPrice = 1000000;
       if (selectedPrice) {
         const [min, max] = selectedPrice.split("-").map(Number);
         minPrice = min;
@@ -71,11 +72,13 @@ const Shop = ({ categories }: Props) => {
       `;
       }
 
+      console.log("Fetching products with params:", { selectedCategory, minPrice, maxPrice, searchQuery });
       const data = await client.fetch(
         query,
         { selectedCategory, minPrice, maxPrice, searchQuery: `*${searchQuery}*` },
         { next: { revalidate: 0 } }
       );
+      console.log("Fetched products count:", data.length);
       setProducts(data);
       setCurrentPage(1); // Reset to first page on new fetch
     } catch (error) {
@@ -91,7 +94,7 @@ const Shop = ({ categories }: Props) => {
 
   // Pagination Logic
   const totalPages = Math.ceil(products.length / itemsPerPage);
-  const currentProducts = products.slice(
+  const currentProducts = (products || []).slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );

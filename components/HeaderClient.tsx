@@ -11,6 +11,11 @@ import Link from "next/link";
 import SignIn from "./SignIn";
 import { Logs } from "lucide-react";
 import { motion } from "framer-motion";
+import { logo } from "@/images";
+import Image from "next/image";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({ subsets: ["latin"] });
 
 interface HeaderClientProps {
     orders: any[] | null;
@@ -20,7 +25,7 @@ const HeaderClient: React.FC<HeaderClientProps> = ({ orders }) => {
     const { user } = useUser();
     const marqueeText = [
         "Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!",
-        "Shop the latest trends with SNIKEI",
+        "Shop the latest trends with Doodle Blast",
         "New Arrivals Daily - Check them out!",
         "Free Shipping on Orders Over $50"
     ];
@@ -28,7 +33,7 @@ const HeaderClient: React.FC<HeaderClientProps> = ({ orders }) => {
     return (
         <header className="w-full bg-white font-sans border-b border-gray-200 sticky top-0 z-50">
             {/* Top Bar with Continuous Marquee */}
-            <div className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white text-center py-3 text-sm font-semibold tracking-wider relative z-50 overflow-hidden shadow-md">
+            <div className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white text-center py-3 text-sm font-semibold tracking-wider relative z-50 overflow-hidden shadow-md -mt-px -mb-px">
                 <div className="flex whitespace-nowrap overflow-hidden">
                     <motion.div
                         className="flex items-center gap-20 pr-20"
@@ -78,8 +83,24 @@ const HeaderClient: React.FC<HeaderClientProps> = ({ orders }) => {
                         className="flex items-center gap-4 md:justify-self-start"
                     >
                         <MobileMenu />
-                        <Link href="/" className="text-2xl md:text-3xl font-bold text-black tracking-tighter hover:opacity-80 transition-opacity">
-                            SNIKEI
+                        <Link href="/" className="flex items-center gap-2 group">
+                            <motion.div
+                                whileHover={{ rotate: 10, scale: 1.1 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                <Image
+                                    src={logo}
+                                    alt="Doodle Blast Logo"
+                                    width={60}
+                                    height={60}
+                                    className="w-10 h-10 md:w-14 md:h-14 object-contain"
+                                />
+                            </motion.div>
+                            <span
+                                className={`text-2xl md:text-3xl font-bold text-black tracking-tight group-hover:text-gray-700 transition-colors hidden sm:block ${outfit.className}`}
+                            >
+                                Doodle Blast
+                            </span>
                         </Link>
                     </motion.div>
 

@@ -2,25 +2,51 @@
 
 import Container from "@/components/Container";
 import ProductCard from "@/components/ProductCard";
-import { DEAL_PRODUCTSResult } from "@/sanity.types";
+import { Product } from "@/sanity.types";
 import React, { useState } from "react";
 import * as motion from "framer-motion/client";
 import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface DealPageContentProps {
-    products: DEAL_PRODUCTSResult;
+    products: Product[];
 }
 
-const tabs = ["All Deals", "Under $50"];
+const tabs = ["All Deals", "Under Rs 50", "Rs 100 - Rs 500", "Over Rs 500"];
 
 const DealPageContent = ({ products }: DealPageContentProps) => {
     const [activeTab, setActiveTab] = useState("All Deals");
 
     const filteredProducts = products?.filter((product) => {
         if (activeTab === "All Deals") return true;
-        if (activeTab === "Under $50") return product.price && product.price < 50;
+        if (activeTab === "Under Rs 50") return product.price && product.price < 50;
+        if (activeTab === "Rs 100 - Rs 500") return product.price && product.price >= 100 && product.price < 500;
+        if (activeTab === "Over Rs 500") return product.price && product.price >= 500;
         return true;
     });
+
+    // Pagination State
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 8;
+
+    // Pagination Logic
+    const totalPages = Math.ceil((filteredProducts?.length || 0) / itemsPerPage);
+    const currentProducts = (filteredProducts || []).slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const handlePageChange = (page: number) => {
+        if (page >= 1 && page <= totalPages) {
+            setCurrentPage(page);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    };
+
+    // Reset page when tab changes
+    React.useEffect(() => {
+        setCurrentPage(1);
+    }, [activeTab]);
 
     return (
         <div className="bg-white min-h-screen flex flex-col">
@@ -59,24 +85,64 @@ const DealPageContent = ({ products }: DealPageContentProps) => {
 
             <Container className="pb-24">
                 {/* Products Grid */}
-                {filteredProducts && filteredProducts.length > 0 ? (
-                    <motion.div
-                        layout
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
-                    >
-                        {filteredProducts.map((product, index) => (
-                            <motion.div
-                                layout
-                                key={product?._id}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <ProductCard product={product as any} />
-                            </motion.div>
-                        ))}
-                    </motion.div>
+                {currentProducts && currentProducts.length > 0 ? (
+                    <>
+                        <motion.div
+                            layout
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+                        >
+                            {currentProducts.map((product, index) => (
+                                <motion.div
+                                    layout
+                                    key={product?._id}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <ProductCard product={product as any} source="deal" />
+                                </motion.div>
+                            ))}
+                        </motion.div>
+
+                        {/* Pagination Controls */}
+                        {totalPages > 1 && (
+                            <div className="flex items-center justify-center gap-2 mt-12">
+                                <button
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                    className="p-2 rounded-full border border-gray-200 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    <ChevronLeft className="w-5 h-5" />
+                                </button>
+
+                                <div className="flex items-center gap-2">
+                                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                                        <button
+                                            key={page}
+                                            onClick={() => handlePageChange(page)}
+                                            className={cn(
+                                                "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300",
+                                                currentPage === page
+                                                    ? "bg-black text-white shadow-lg scale-110"
+                                                    : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+                                            )}
+                                        >
+                                            {page}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                <button
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                    className="p-2 rounded-full border border-gray-200 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    <ChevronRight className="w-5 h-5" />
+                                </button>
+                            </div>
+                        )}
+                    </>
                 ) : (
                     <motion.div
                         initial={{ opacity: 0 }}

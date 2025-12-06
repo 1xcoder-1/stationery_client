@@ -1,4 +1,4 @@
-import { MY_ORDERS_QUERYResult } from "@/sanity.types";
+import { Order, Product } from "@/sanity.types";
 import React from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
@@ -15,8 +15,19 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import PriceFormatter from "./PriceFormatter";
 
+// Define the type for our order with expanded products based on the actual query
+type ProductInOrder = {
+  _key: string;
+  quantity?: number;
+  product?: Product;
+};
+
+type OrderWithProducts = Omit<Order, 'products'> & {
+  products?: ProductInOrder[];
+};
+
 interface OrderDetailsDialogProps {
-  order: MY_ORDERS_QUERYResult[number] | null;
+  order: OrderWithProducts | null;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -28,7 +39,7 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
 }) => {
   if (!order) return null;
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+        <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="!max-w-4xl max-h-[90vh] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>Order Details - {order?.orderNumber}</DialogTitle>
@@ -50,18 +61,7 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
               {order.status}
             </span>
           </p>
-          <p>
-            <strong>Invoice Number:</strong> {order?.invoice?.number}
-          </p>
-          {order?.invoice && (
-            <Button className="bg-transparent border text-darkColor/80 mt-2 hover:text-darkColor hover:border-darkColor hover:bg-darkColor/10 hoverEffect ">
-              {order?.invoice?.hosted_invoice_url && (
-                <Link href={order?.invoice?.hosted_invoice_url} target="_blank">
-                  Download Invoice
-                </Link>
-              )}
-            </Button>
-          )}
+
         </div>
         <Table>
           <TableHeader>
@@ -75,9 +75,9 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
             {order.products?.map((product, index) => (
               <TableRow key={index}>
                 <TableCell className="flex items-center gap-2">
-                  {product?.product?.images && (
+                  {product?.product?.images && product.product.images.length > 0 && (
                     <Image
-                      src={urlFor(product?.product?.images[0]).url()}
+                      src={urlFor(product.product.images[0]).url()}
                       alt="productImage"
                       width={50}
                       height={50}
@@ -85,7 +85,7 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
                     />
                   )}
 
-                  {product?.product && product?.product?.name}
+                  {product?.product?.name}
                 </TableCell>
                 <TableCell>{product?.quantity}</TableCell>
                 <TableCell>
@@ -114,8 +114,8 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
                 <strong>Subtotal: </strong>
                 <PriceFormatter
                   amount={
-                    (order?.totalPrice as number) +
-                    (order?.amountDiscount as number)
+                    (order?.totalPrice || 0) +
+                    (order?.amountDiscount || 0)
                   }
                   className="text-black font-bold"
                 />

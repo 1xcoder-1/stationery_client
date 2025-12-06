@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { Product } from "./sanity.types";
+import { useUser } from "@clerk/nextjs";
 
 export interface CartItem {
   product: Product;
@@ -9,7 +10,7 @@ export interface CartItem {
 
 interface StoreState {
   items: CartItem[];
-  addItem: (product: Product) => void;
+  addItem: (product: Product, quantity?: number) => void;
   removeItem: (productId: string) => void;
   deleteCartProduct: (productId: string) => void;
   resetCart: () => void;
@@ -22,14 +23,34 @@ interface StoreState {
   addToFavorite: (product: Product) => Promise<void>;
   removeFromFavorite: (productId: string) => void;
   resetFavorite: () => void;
+  // discount
+  discount: number;
+  setDiscount: (amount: number) => void;
 }
+
+// Custom storage that includes user ID in the key
+const createUserStorage = (userId: string | null) => ({
+  getItem: (name: string) => {
+    if (!userId) return null;
+    const item = localStorage.getItem(`${name}-${userId}`);
+    return item ? JSON.parse(item) : null;
+  },
+  setItem: (name: string, value: any) => {
+    if (!userId) return;
+    localStorage.setItem(`${name}-${userId}`, JSON.stringify(value));
+  },
+  removeItem: (name: string) => {
+    if (!userId) return;
+    localStorage.removeItem(`${name}-${userId}`);
+  },
+});
 
 const useStore = create<StoreState>()(
   persist(
     (set, get) => ({
       items: [],
       favoriteProduct: [],
-      addItem: (product) =>
+      addItem: (product, quantity = 1) =>
         set((state) => {
           const existingItem = state.items.find(
             (item) => item.product._id === product._id
@@ -38,12 +59,12 @@ const useStore = create<StoreState>()(
             return {
               items: state.items.map((item) =>
                 item.product._id === product._id
-                  ? { ...item, quantity: item.quantity + 1 }
+                  ? { ...item, quantity: item.quantity + quantity }
                   : item
               ),
             };
           } else {
-            return { items: [...state.items, { product, quantity: 1 }] };
+            return { items: [...state.items, { product, quantity }] };
           }
         }),
       removeItem: (productId) =>
@@ -74,10 +95,7 @@ const useStore = create<StoreState>()(
       },
       getSubTotalPrice: () => {
         return get().items.reduce((total, item) => {
-          const price = item.product.price ?? 0;
-          const discount = ((item.product.discount ?? 0) * price) / 100;
-          const discountedPrice = price + discount;
-          return total + discountedPrice * item.quantity;
+          return total + (item.product.price ?? 0) * item.quantity;
         }, 0);
       },
       getItemCount: (productId) => {
@@ -94,8 +112,8 @@ const useStore = create<StoreState>()(
             return {
               favoriteProduct: isFavorite
                 ? state.favoriteProduct.filter(
-                    (item) => item._id !== product._id
-                  )
+                  (item) => item._id !== product._id
+                )
                 : [...state.favoriteProduct, { ...product }],
             };
           });
@@ -112,11 +130,33 @@ const useStore = create<StoreState>()(
       resetFavorite: () => {
         set({ favoriteProduct: [] });
       },
+      discount: 0,
+      setDiscount: (amount: number) => set({ discount: amount }),
     }),
     {
       name: "cart-store",
+      storage: typeof window !== "undefined"
+        ? createJSONStorage(() => createUserStorage(null))
+        : undefined,
     }
   )
 );
+
+// Function to reinitialize store with user-specific storage
+export const initializeStoreWithUser = (userId: string | null) => {
+  if (typeof window !== "undefined") {
+    useStore.persist.setOptions({
+      storage: createJSONStorage(() => createUserStorage(userId)),
+    });
+
+    // If user changed, clear the previous state and rehydrate with user's data
+    if (userId) {
+      useStore.persist.rehydrate();
+    } else {
+      // For anonymous users, clear the cart
+      useStore.getState().resetCart();
+    }
+  }
+};
 
 export default useStore;

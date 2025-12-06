@@ -42,7 +42,7 @@ const SingleBlogPage = async ({
           transition={{ duration: 0.6 }}
           className="mb-10 md:mb-14"
         >
-          <div className="flex items-center gap-2 text-sm font-medium text-shop_dark_green mb-4">
+          <div className="flex items-center gap-2 text-sm font-medium text-black mb-4">
             <Link href="/blog" className="flex items-center gap-1 hover:underline">
               <ChevronLeft className="w-4 h-4" /> Back to Blog
             </Link>

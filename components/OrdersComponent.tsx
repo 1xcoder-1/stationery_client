@@ -1,6 +1,6 @@
 "use client";
 
-import { MY_ORDERS_QUERYResult } from "@/sanity.types";
+import { Order } from "@/sanity.types";
 import { TableBody, TableCell, TableRow } from "./ui/table";
 import {
   Tooltip,
@@ -10,24 +10,30 @@ import {
 } from "./ui/tooltip";
 import PriceFormatter from "./PriceFormatter";
 import { format } from "date-fns";
-import { X } from "lucide-react";
 import { useState } from "react";
 import OrderDetailDialog from "./OrderDetailDialog";
-import toast from "react-hot-toast";
 
-const OrdersComponent = ({ orders }: { orders: MY_ORDERS_QUERYResult }) => {
-  const [selectedOrder, setSelectedOrder] = useState<
-    MY_ORDERS_QUERYResult[number] | null
-  >(null);
-  const handleDelete = () => {
-    toast.error("Delete method applied for Admin");
-  };
+// Define the type for our orders array based on the Order type
+// This matches the structure returned by MY_ORDERS_QUERY
+type OrderWithProducts = Order & {
+  products?: Array<{
+    _key: string;
+    quantity?: number;
+    product?: any; // We could make this more specific if needed
+  }>;
+};
+
+const OrdersComponent = ({ orders }: { orders: OrderWithProducts[] }) => {
+  const [selectedOrder, setSelectedOrder] = useState<OrderWithProducts | null>(
+    null
+  );
+
   return (
     <>
       <TableBody>
         <TooltipProvider>
           {orders.map((order) => (
-            <Tooltip key={order?.orderNumber}>
+            <Tooltip key={order?._id}>
               <TooltipTrigger asChild>
                 <TableRow
                   className="cursor-pointer hover:bg-gray-100 h-12"
@@ -63,26 +69,6 @@ const OrdersComponent = ({ orders }: { orders: MY_ORDERS_QUERYResult }) => {
                           order?.status.slice(1)}
                       </span>
                     )}
-                  </TableCell>
-
-                  <TableCell className="hidden sm:table-cell">
-                    {order?.invoice && (
-                      <p className="font-medium line-clamp-1">
-                        {order?.invoice ? order?.invoice?.number : "----"}
-                      </p>
-                    )}
-                  </TableCell>
-                  <TableCell
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      handleDelete();
-                    }}
-                    className="flex items-center justify-center group"
-                  >
-                    <X
-                      size={20}
-                      className="group-hover:text-shop_dark_green hoverEffect"
-                    />
                   </TableCell>
                 </TableRow>
               </TooltipTrigger>

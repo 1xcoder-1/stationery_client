@@ -2,12 +2,22 @@
 import useStore from "@/store";
 import { ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useUser } from "@clerk/nextjs";
+import { initializeStoreWithUser } from "@/store";
 
 const CartIcon = () => {
   const { items } = useStore();
+  const { user, isLoaded } = useUser();
   const itemCount = items?.length || 0;
+
+  // Reinitialize store when user loads
+  useEffect(() => {
+    if (isLoaded) {
+      initializeStoreWithUser(user?.id || null);
+    }
+  }, [user, isLoaded]);
 
   return (
     <motion.div
