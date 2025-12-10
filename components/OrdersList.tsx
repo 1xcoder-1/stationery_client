@@ -1,6 +1,6 @@
 "use client";
 
-import { Order } from "@/sanity.types";
+import { Order, Product } from "@/sanity.types";
 import React from "react";
 import { motion } from "framer-motion";
 import OrdersComponent from "./OrdersComponent";
@@ -14,7 +14,7 @@ type OrderWithProducts = Order & {
     products?: Array<{
         _key: string;
         quantity?: number;
-        product?: any;
+        product?: Product;
     }>;
 };
 

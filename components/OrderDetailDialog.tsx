@@ -20,6 +20,8 @@ type ProductInOrder = {
   _key: string;
   quantity?: number;
   product?: Product;
+  variantName?: string;
+  price?: number;
 };
 
 type OrderWithProducts = Omit<Order, 'products'> & {
@@ -39,7 +41,7 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
 }) => {
   if (!order) return null;
   return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="!max-w-4xl max-h-[90vh] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>Order Details - {order?.orderNumber}</DialogTitle>
@@ -72,12 +74,12 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {order.products?.map((product, index) => (
+            {order.products?.map((item, index) => (
               <TableRow key={index}>
                 <TableCell className="flex items-center gap-2">
-                  {product?.product?.images && product.product.images.length > 0 && (
+                  {item?.product?.images && item.product.images.length > 0 && (
                     <Image
-                      src={urlFor(product.product.images[0]).url()}
+                      src={urlFor(item.product.images[0]).url()}
                       alt="productImage"
                       width={50}
                       height={50}
@@ -85,12 +87,18 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
                     />
                   )}
 
-                  {product?.product?.name}
+                  {item?.product?.name}
+                  {item?.variantName && (
+                    <span className="text-gray-500 text-sm ml-1">
+                      ({item.variantName})
+                    </span>
+                  )}
                 </TableCell>
-                <TableCell>{product?.quantity}</TableCell>
+                <TableCell>{item?.quantity}</TableCell>
                 <TableCell>
                   <PriceFormatter
-                    amount={product?.product?.price}
+                    // Use the snapshot price stored in the order item if available, otherwise fallback to current product price
+                    amount={item?.price ?? item?.product?.price}
                     className="text-black font-medium"
                   />
                 </TableCell>

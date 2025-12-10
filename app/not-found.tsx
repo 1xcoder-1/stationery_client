@@ -44,7 +44,7 @@ const NotFoundPage = () => {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="text-gray-500 text-lg md:text-xl mb-10 font-medium"
         >
-          We can't find the page you're looking for.
+          We can&apos;t find the page you&apos;re looking for.
         </motion.p>
 
         {/* Go Back Button */}

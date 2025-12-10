@@ -82,18 +82,30 @@ export const orderType = defineType({
               title: "Quantity Purchased",
               type: "number",
             }),
+            defineField({
+              name: "variantName",
+              title: "Variant Name",
+              type: "string",
+            }),
+            defineField({
+              name: "price",
+              title: "Unit Price (At Purchase)",
+              type: "number",
+            }),
           ],
           preview: {
             select: {
               product: "product.name",
               quantity: "quantity",
               image: "product.image",
-              price: "product.price",
+              price: "price", // Use the stored price
               currency: "product.currency",
+              variant: "variantName",
             },
             prepare(select) {
+              const variantSuffix = select.variant ? ` (${select.variant})` : "";
               return {
-                title: `${select.product} x ${select.quantity}`,
+                title: `${select.product}${variantSuffix} x ${select.quantity}`,
                 subtitle: `${select.price * select.quantity}`,
                 media: select.image,
               };

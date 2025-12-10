@@ -3,7 +3,7 @@
 
 import Container from "@/components/Container";
 import React from "react";
-import { Mail, Phone, MessageCircle, HelpCircle, ChevronRight, MessageSquare, Clock, ArrowRight } from "lucide-react";
+import { Mail, Phone, MessageCircle, HelpCircle, MessageSquare, Clock, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -20,11 +20,11 @@ const HelpPage = () => {
     },
     {
       question: "How long does shipping take?",
-      answer: "Standard shipping takes 3-5 business days. Express shipping is available for next-day delivery in most areas."
+      answer: "Standard shipping takes 3-5 business days. Express shipping is available for next day delivery in most areas."
     },
     {
       question: "What is your return policy?",
-      answer: "We offer a 30-day return policy on all unused items. Please contact support to initiate a return."
+      answer: "We offer a 7 day return policy on all unused items. Please contact support to initiate a return."
     },
     {
       question: "Do you offer cash on delivery?",
@@ -94,7 +94,7 @@ const HelpPage = () => {
               <HelpCircle className="w-8 h-8 text-shop_light_green" />
             </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              We're here to help
+              We&apos;re here to help
             </h1>
             <p className="text-lg text-white/80 leading-relaxed">
               Have questions? We have answers. Check out our frequently asked questions below or contact our support team directly.

@@ -157,7 +157,7 @@ const TermsPage = () => {
             <div className="relative z-10 space-y-6">
               <h2 className="text-2xl md:text-3xl font-bold">Still have questions?</h2>
               <p className="text-white/80 max-w-xl mx-auto">
-                If you have any questions about our Terms & Conditions, please don't hesitate to contact our support team.
+                If you have any questions about our Terms & Conditions, please don&apos;t hesitate to contact our support team.
               </p>
               <Link href="/contact">
                 <button className="px-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">

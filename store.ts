@@ -59,7 +59,7 @@ const useStore = create<StoreState>()(
             return {
               items: state.items.map((item) =>
                 item.product._id === product._id
-                  ? { ...item, quantity: item.quantity + quantity }
+                  ? { ...item, quantity: item.quantity + quantity, product }
                   : item
               ),
             };
@@ -88,14 +88,23 @@ const useStore = create<StoreState>()(
         })),
       resetCart: () => set({ items: [] }),
       getTotalPrice: () => {
-        return get().items.reduce(
-          (total, item) => total + (item.product.price ?? 0) * item.quantity,
-          0
-        );
+        return get().items.reduce((total, item) => {
+          const price = item.product.price ?? 0;
+          const discount = item.product.discount ?? 0;
+          const discountedPrice = discount > 0
+            ? price - (price * discount) / 100
+            : price;
+          return total + discountedPrice * item.quantity;
+        }, 0);
       },
       getSubTotalPrice: () => {
         return get().items.reduce((total, item) => {
-          return total + (item.product.price ?? 0) * item.quantity;
+          const price = item.product.price ?? 0;
+          const discount = item.product.discount ?? 0;
+          const discountedPrice = discount > 0
+            ? price - (price * discount) / 100
+            : price;
+          return total + discountedPrice * item.quantity;
         }, 0);
       },
       getItemCount: (productId) => {

@@ -10,12 +10,11 @@ import { Button } from "@/components/ui/button";
 import { CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-import { Address } from "@/sanity.types";
-import { client } from "@/sanity/lib/client";
+
 import { urlFor } from "@/sanity/lib/image";
 import useStore from "@/store";
-import { useAuth, useUser } from "@clerk/nextjs";
-import { ShoppingBag, Trash, Truck, Gift, ArrowRight, CreditCard, ShieldCheck } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
+import { ShoppingBag, Trash, Truck, ArrowRight, CreditCard, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -28,17 +27,14 @@ const CartPage = () => {
   const {
     deleteCartProduct,
     getTotalPrice,
-    getItemCount,
     getSubTotalPrice,
     resetCart,
   } = useStore();
-  const [loading, setLoading] = useState(false);
   const groupedItems = useStore((state) => state.getGroupedItems());
-  const { isSignedIn } = useAuth();
   const { user } = useUser();
-  const [addresses, setAddresses] = useState<Address[] | null>(null);
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
-  const [couponCode, setCouponCode] = useState("");
+  // const [addresses, setAddresses] = useState<Address[] | null>(null);
+  // const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+  // const [couponCode, setCouponCode] = useState("");
 
   // Initialize store with current user
   useEffect(() => {
@@ -49,29 +45,6 @@ const CartPage = () => {
       initializeStoreWithUser(null);
     }
   }, [user]);
-
-  const fetchAddresses = async () => {
-    setLoading(true);
-    try {
-      const query = `*[_type=="address"] | order(publishedAt desc)`;
-      const data = await client.fetch(query);
-      setAddresses(data);
-      const defaultAddress = data.find((addr: Address) => addr.default);
-      if (defaultAddress) {
-        setSelectedAddress(defaultAddress);
-      } else if (data.length > 0) {
-        setSelectedAddress(data[0]);
-      }
-    } catch (error) {
-      console.log("Addresses fetching error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchAddresses();
-  }, []);
 
   const handleResetCart = () => {
     const confirmed = window.confirm(
@@ -167,7 +140,7 @@ const CartPage = () => {
                             <div className="flex-1 flex flex-col justify-between">
                               <div>
                                 <div className="flex justify-between items-start gap-2">
-                                  <h2 className="text-lg md:text-xl font-bold text-gray-900 line-clamp-2 hover:text-shop_dark_green transition-colors">
+                                  <h2 className="text-lg md:text-xl font-bold text-gray-900 line-clamp-2 hover:scale-110 transition-transform duration-500">
                                     <Link href={`/product/${product?.slug?.current}`}>
                                       {product?.name}
                                     </Link>
@@ -189,8 +162,13 @@ const CartPage = () => {
                                   <div className="text-right">
                                     <p className="text-xs text-gray-500 mb-1">Total</p>
                                     <PriceFormatter
-                                      amount={(product?.price as number) * itemCount}
-                                      className="text-xl font-bold text-shop_dark_green"
+                                      amount={(() => {
+                                        const price = product?.price || 0;
+                                        const discount = product?.discount || 0;
+                                        const effectivePrice = discount > 0 ? price - (price * discount) / 100 : price;
+                                        return effectivePrice * itemCount;
+                                      })()}
+                                      className="text-xl font-bold text-black"
                                     />
                                   </div>
                                 </div>
@@ -250,7 +228,7 @@ const CartPage = () => {
 
                       <div className="flex justify-between text-lg font-bold">
                         <span>Total</span>
-                        <PriceFormatter amount={getTotalPrice() + SHIPPING_COST + taxAmount} className="text-shop_dark_green" />
+                        <PriceFormatter amount={getTotalPrice() + SHIPPING_COST + taxAmount} className="text-black" />
                       </div>
                     </div>
 

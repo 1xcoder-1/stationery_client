@@ -17,7 +17,7 @@ export async function getAIResponse(userMessage: string) {
     const genAI = new GoogleGenerativeAI(apiKey);
 
     // Use the correct model name (gemini-1.5-flash is the stable version)
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     // Create context about Doodle Blast
     const context = `You are an AI assistant for Doodle Blast, an e-commerce platform. 

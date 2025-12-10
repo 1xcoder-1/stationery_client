@@ -4,24 +4,24 @@ import React from "react";
 import { SignUp } from "@clerk/nextjs";
 import Container from "@/components/Container";
 import Image from "next/image";
-import { contact_hero } from "@/images";
+import { contact_hero, auth_image } from "@/images";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 const SignUpPage = () => {
     return (
-        <div className="bg-gray-50 min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div className="bg-gray-50 min-h-screen flex items-center justify-center relative overflow-x-hidden">
             {/* Background Decorative Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
                 <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-blue-100 rounded-full blur-[120px] opacity-30" />
                 <div className="absolute top-[30%] -right-[10%] w-[40%] h-[40%] bg-purple-100 rounded-full blur-[100px] opacity-30" />
             </div>
 
-            <Container className="py-10 md:py-20 relative z-10">
+            <Container className="py-8 md:py-20 relative z-10">
                 <Link
                     href="/"
-                    className="absolute top-6 left-6 md:top-10 md:left-10 flex items-center gap-2 text-gray-600 hover:text-black transition-colors duration-300 group"
+                    className="flex mb-6 md:mb-0 md:absolute md:top-10 md:left-10 items-center gap-2 text-gray-600 hover:text-black transition-colors duration-300 group"
                 >
                     <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                     <span className="font-medium">Back to Home</span>
@@ -33,7 +33,7 @@ const SignUpPage = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="flex flex-col justify-center p-8 md:p-16 lg:p-20 bg-white order-2 lg:order-1"
+                        className="flex flex-col justify-center p-6 md:p-12 lg:p-20 bg-white order-2 lg:order-1"
                     >
                         <div className="mb-8">
                             <motion.h1
@@ -58,13 +58,13 @@ const SignUpPage = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4, duration: 0.5 }}
-                            className="w-full"
+                            className="w-full flex justify-center"
                         >
                             <SignUp
                                 signInUrl="/login"
                                 appearance={{
                                     elements: {
-                                        rootBox: "w-full",
+                                        rootBox: "w-full max-w-md mx-auto",
                                         card: "shadow-none border-0 bg-transparent p-0 w-full",
                                         // headerTitle: "hidden",
                                         // headerSubtitle: "hidden",
@@ -86,10 +86,10 @@ const SignUpPage = () => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-                        className="relative h-[300px] lg:h-auto w-full overflow-hidden order-1 lg:order-2 bg-gray-900"
+                        className="relative h-[200px] sm:h-[300px] lg:h-auto w-full overflow-hidden order-1 lg:order-2 bg-gray-900"
                     >
                         <Image
-                            src={contact_hero}
+                            src={auth_image}
                             alt="Sign Up Hero"
                             fill
                             className="object-cover opacity-90"

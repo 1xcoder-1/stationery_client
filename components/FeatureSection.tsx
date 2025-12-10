@@ -25,7 +25,7 @@ const FeatureSection = () => {
                         <Recycle className="w-7 h-7" strokeWidth={1.5} />
                     </div>
                     <h3 className="text-lg font-bold text-black mb-2 group-hover:text-gray-800">Sustainable Materials</h3>
-                    <p className="text-sm text-gray-500 leading-relaxed">We believe great style shouldn't come at the planet's expense.</p>
+                    <p className="text-sm text-gray-500 leading-relaxed">We believe great style shouldn&apos;t come at the planet&apos;s expense.</p>
                 </div>
                 {/* Feature 2 */}
                 <div className="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group cursor-pointer">

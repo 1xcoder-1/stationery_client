@@ -64,7 +64,7 @@ const AIChat = () => {
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, aiResponse]);
-    } catch (error) {
+    } catch {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
@@ -79,6 +79,7 @@ const AIChat = () => {
 
   return (
     <>
+      {/* Floating AI Chat Button with enhanced animation */}
       {/* Floating AI Chat Button with enhanced animation */}
       <motion.button
         whileHover={{
@@ -95,35 +96,57 @@ const AIChat = () => {
           repeatType: "reverse",
           ease: "easeInOut"
         }}
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-black text-white shadow-2xl flex items-center justify-center z-50 group overflow-hidden border-4 border-white/20 backdrop-blur-sm"
-        aria-label="Open Doodle Blast AI"
+        aria-label={isOpen ? "Close Doodle Blast AI" : "Open Doodle Blast AI"}
       >
-        <motion.div
-          className="relative z-10"
-          animate={{
-            rotate: [0, 10, 0, -10, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut"
-          }}
-        >
-          <Bot className="w-8 h-8 text-white drop-shadow-md" />
-        </motion.div>
+        <AnimatePresence mode="wait">
+          {isOpen ? (
+            <motion.div
+              key="close-icon"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <X className="w-8 h-8 text-white drop-shadow-md" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="bot-icon"
+              className="relative z-10"
+              initial={{ rotate: 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.div
+                animate={{
+                  rotate: [0, 10, 0, -10, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
+                }}
+              >
+                <Bot className="w-8 h-8 text-white drop-shadow-md" />
+              </motion.div>
 
-        <motion.div
-          className="absolute top-3 right-3 w-3 h-3 bg-red-500 rounded-full shadow-lg border border-white"
-          initial={{ scale: 0 }}
-          animate={{ scale: [0, 1.2, 1] }}
-          transition={{
-            duration: 0.5,
-            repeat: Infinity,
-            repeatDelay: 4
-          }}
-        />
+              <motion.div
+                className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full shadow-lg border border-white"
+                initial={{ scale: 0 }}
+                animate={{ scale: [0, 1.2, 1] }}
+                transition={{
+                  duration: 0.5,
+                  repeat: Infinity,
+                  repeatDelay: 4
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.button>
 
       <AnimatePresence>
@@ -160,6 +183,7 @@ const AIChat = () => {
                   size="icon"
                   onClick={() => setIsOpen(false)}
                   className="h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300"
+                  aria-label="Close chat"
                 >
                   <X className="w-4 h-4" />
                 </Button>

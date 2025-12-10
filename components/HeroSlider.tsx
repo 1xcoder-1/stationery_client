@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { product_1, product_3, product_20 } from "@/images";
+import { slider_1, slider_2, slider_3, slider_4 } from "@/images";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
 
@@ -14,25 +14,25 @@ const HeroSlider = () => {
   const slides = [
     {
       id: 1,
-      tag: "Summer Collection",
-      title: "Elevate Your Style",
-      description: "Discover our premium collection of formal wear. Crafted for elegance and designed for comfort.",
-      image: product_1,
-      ctaText: "Shop Collection",
+      tag: "New Arrival",
+      title: "Modern Aesthetics",
+      description: "Redefine your space with our latest collection. Minimalist design meets maximum comfort.",
+      image: slider_1,
+      ctaText: "Explore Now",
       ctaLink: "/shop",
       bgGradient: "from-[#fdfbf7] via-[#f5efe6] to-[#e6ded3]",
       accentColor: "text-amber-900",
       circleColor: "bg-amber-200/20",
-      price: "$129.00",
+      price: "$199.00",
     },
     {
       id: 2,
-      tag: "Next Gen Audio",
-      title: "Immersive Sound",
-      description: "Experience music like never before with our latest noise-cancelling technology.",
-      image: product_3,
-      ctaText: "Buy Now",
-      ctaLink: "/category/technology",
+      tag: "Limited Edition",
+      title: "Exclusive Tech",
+      description: "Cutting-edge innovation for the modern professional. Experience power and style combined.",
+      image: slider_2,
+      ctaText: "Pre-order",
+      ctaLink: "/shop",
       bgGradient: "from-[#f0f9ff] via-[#e0f2fe] to-[#bae6fd]",
       accentColor: "text-sky-900",
       circleColor: "bg-sky-200/20",
@@ -40,16 +40,29 @@ const HeroSlider = () => {
     },
     {
       id: 3,
-      tag: "Performance Gear",
-      title: "Run Without Limits",
-      description: "Engineered for speed and endurance. Push your boundaries with our pro series.",
-      image: product_20,
-      ctaText: "Get Moving",
+      tag: "Best Seller",
+      title: "Urban Lifestyle",
+      description: "Designed for the city. Versatile, durable, and effortlessly cool for your daily adventures.",
+      image: slider_3,
+      ctaText: "Shop the Look",
       ctaLink: "/shop",
       bgGradient: "from-[#f0fdf4] via-[#dcfce7] to-[#bbf7d0]",
       accentColor: "text-emerald-900",
       circleColor: "bg-emerald-200/20",
-      price: "$89.00",
+      price: "$149.00",
+    },
+    {
+      id: 4,
+      tag: "Premium Gear",
+      title: "Ultimate Performance",
+      description: "Push your limits with gear engineered for excellence. Unmatched quality for the ambitious.",
+      image: slider_4,
+      ctaText: "Discover More",
+      ctaLink: "/shop",
+      bgGradient: "from-[#faf5ff] via-[#f3e8ff] to-[#e9d5ff]",
+      accentColor: "text-purple-900",
+      circleColor: "bg-purple-200/20",
+      price: "$249.00",
     },
   ];
 
@@ -69,7 +82,7 @@ const HeroSlider = () => {
   };
 
   return (
-    <div className="relative w-full h-[600px] lg:h-[750px] overflow-hidden rounded-[2rem] shadow-2xl mx-auto group">
+    <div className="relative w-full h-[700px] md:h-[600px] lg:h-[750px] overflow-hidden rounded-[2rem] shadow-2xl mx-auto group bg-white">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -85,27 +98,27 @@ const HeroSlider = () => {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1.5, ease: "easeOut" }}
-              className={`absolute -top-1/2 -right-1/4 w-[800px] h-[800px] rounded-full blur-3xl ${slides[currentIndex].circleColor}`}
+              className={`absolute -top-1/2 -right-1/4 w-[500px] md:w-[800px] h-[500px] md:h-[800px] rounded-full blur-3xl ${slides[currentIndex].circleColor}`}
             />
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-              className={`absolute -bottom-1/2 -left-1/4 w-[600px] h-[600px] rounded-full blur-3xl ${slides[currentIndex].circleColor}`}
+              className={`absolute -bottom-1/2 -left-1/4 w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full blur-3xl ${slides[currentIndex].circleColor}`}
             />
           </div>
 
-          <div className="relative h-full flex flex-col-reverse lg:flex-row items-center justify-between px-6 md:px-12 lg:px-20 py-12 lg:py-0">
+          <div className="relative h-full flex flex-col-reverse lg:flex-row items-center justify-between px-6 md:px-12 lg:px-20 py-8 lg:py-0">
 
             {/* Text Content */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 z-20 pt-8 lg:pt-0">
+            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 md:space-y-6 z-20 pt-4 lg:pt-0 pb-16 lg:pb-0">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="inline-block"
               >
-                <span className={`px-4 py-1.5 rounded-full text-sm font-bold tracking-wider uppercase bg-white/80 backdrop-blur-sm shadow-sm ${slides[currentIndex].accentColor}`}>
+                <span className={`px-3 py-1 md:px-4 md:py-1.5 rounded-full text-xs md:text-sm font-bold tracking-wider uppercase bg-white/80 backdrop-blur-sm shadow-sm ${slides[currentIndex].accentColor}`}>
                   {slides[currentIndex].tag}
                 </span>
               </motion.div>
@@ -114,7 +127,7 @@ const HeroSlider = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className={`text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] ${slides[currentIndex].accentColor}`}
+                className={`text-4xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1] md:leading-[0.9] ${slides[currentIndex].accentColor}`}
               >
                 {slides[currentIndex].title}
               </motion.h1>
@@ -123,7 +136,7 @@ const HeroSlider = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-lg md:text-xl text-gray-600 max-w-lg font-medium leading-relaxed"
+                className="text-base md:text-xl text-gray-600 max-w-lg font-medium leading-relaxed px-2 md:px-0"
               >
                 {slides[currentIndex].description}
               </motion.p>
@@ -132,11 +145,11 @@ const HeroSlider = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="flex items-center gap-4 pt-4"
+                className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto"
               >
                 <Link
                   href={slides[currentIndex].ctaLink}
-                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white rounded-lg font-bold text-lg shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+                  className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-3 px-8 py-3 md:py-4 bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white rounded-lg font-bold text-base md:text-lg shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
                 >
                   <span className="relative z-10">{slides[currentIndex].ctaText}</span>
                   <ArrowRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
@@ -150,7 +163,7 @@ const HeroSlider = () => {
             </div>
 
             {/* Image Content */}
-            <div className="w-full lg:w-1/2 h-[40vh] lg:h-full flex items-center justify-center relative z-10">
+            <div className="w-full lg:w-1/2 h-[35vh] md:h-[40vh] lg:h-full flex items-center justify-center relative z-10">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, x: 50 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -160,7 +173,7 @@ const HeroSlider = () => {
                 <motion.div
                   animate={{ y: [-10, 10, -10] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative w-[300px] md:w-[450px] lg:w-[650px] aspect-square"
+                  className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] lg:w-[650px] lg:h-[650px] aspect-square"
                 >
                   <Image
                     src={slides[currentIndex].image}
@@ -178,30 +191,30 @@ const HeroSlider = () => {
       </AnimatePresence>
 
       {/* Navigation Arrows */}
-      <div className="absolute bottom-8 right-8 lg:bottom-12 lg:right-12 flex gap-3 z-30">
+      <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 lg:bottom-12 lg:right-12 flex gap-2 md:gap-3 z-30">
         <button
           onClick={prevSlide}
-          className="p-4 rounded-full bg-white/90 hover:bg-white text-black shadow-lg backdrop-blur-sm transition-all hover:scale-110 active:scale-95 group"
+          className="p-3 md:p-4 rounded-full bg-white/90 hover:bg-white text-black shadow-lg backdrop-blur-sm transition-all hover:scale-110 active:scale-95 group"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-6 h-6 transition-transform group-hover:-translate-x-1" />
+          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:-translate-x-1" />
         </button>
         <button
           onClick={nextSlide}
-          className="p-4 rounded-full bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white shadow-lg backdrop-blur-sm transition-all hover:scale-110 active:scale-95 group"
+          className="p-3 md:p-4 rounded-full bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white shadow-lg backdrop-blur-sm transition-all hover:scale-110 active:scale-95 group"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
+          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:translate-x-1" />
         </button>
       </div>
 
       {/* Progress Indicators */}
-      <div className="absolute bottom-8 left-8 lg:bottom-12 lg:left-12 flex gap-2 z-30">
+      <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 lg:bottom-12 lg:left-12 flex gap-2 z-30">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            className={`h-1.5 rounded-xl transition-all duration-500 ${idx === currentIndex ? "w-12 bg-black" : "w-4 bg-black/20 hover:bg-black/40"
+            className={`h-1.5 rounded-xl transition-all duration-500 ${idx === currentIndex ? "w-8 md:w-12 bg-black" : "w-3 md:w-4 bg-black/20 hover:bg-black/40"
               }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

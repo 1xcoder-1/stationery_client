@@ -21,9 +21,13 @@ export const categoriesData = [
   { title: "Kitchen Appliances", href: "kitchen-appliances" },
   { title: "gadget accessories", href: "gadget-accessories" },
 ];
+// Toggle this to show/hide the Best Sellers category
+const showBestSellers = true;
+
 export const productType = [
-  { title: "Gadget", value: "gadget" },
-  { title: "Appliances", value: "appliances" },
-  { title: "Refrigerators", value: "refrigerators" },
-  { title: "Others", value: "others" },
+  ...(showBestSellers ? [{ title: "Best Sellers", value: "best-sellers" }] : []),
+  { title: "Portable Fans", value: "portable-fans" },
+  { title: "Stationery Sets", value: "stationery-sets" },
+  { title: "Notebooks", value: "notebooks" },
+  { title: "Art Supplies", value: "art-supplies" },
 ];

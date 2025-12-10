@@ -73,7 +73,7 @@ export default function EmptyCart() {
                   Your Cart is Empty
                 </h2>
                 <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-                  Looks like you haven't made your choice yet. Explore our collection and find something you love!
+                  Looks like you haven&apos;t made your choice yet. Explore our collection and find something you love!
                 </p>
 
                 <div className="space-y-4 mb-8">

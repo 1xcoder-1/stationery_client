@@ -64,10 +64,10 @@ const CategoriesList = ({ categories }: CategoriesListProps) => {
                     >
                         <Link href={`/category/${category?.slug?.current}`} className="block h-full group">
                             <div className="relative h-full bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-                                <div className="bg-gray-50 aspect-[4/3] flex items-center justify-center p-10 relative overflow-hidden">
+                                <div className="bg-gray-50 aspect-[4/3] flex items-center justify-center relative overflow-hidden">
                                     {category?.image ? (
                                         <motion.div
-                                            whileHover={{ scale: 1.15, rotate: 3 }}
+                                            whileHover={{ scale: 1.05 }}
                                             transition={{ duration: 0.4, ease: "easeOut" }}
                                             className="w-full h-full relative"
                                         >
@@ -75,7 +75,7 @@ const CategoriesList = ({ categories }: CategoriesListProps) => {
                                                 src={urlFor(category?.image).url()}
                                                 alt={category?.title || "Category Image"}
                                                 fill
-                                                className="object-contain drop-shadow-lg"
+                                                className="object-cover"
                                             />
                                         </motion.div>
                                     ) : (

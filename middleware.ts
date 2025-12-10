@@ -1,12 +1,30 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-const isProtectedRoute = createRouteMatcher([
-  '/((?!.*\\..*|_next).*)', // Matches all routes except those with extensions or _next
-  '/(api|trpc)(.*)',
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/product(.*)",
+  "/category(.*)",
+  "/cart",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/api/webhooks(.*)",
+  "/studio(.*)", // Sanity studio might be public or handle its own auth
+  // Add other public routes here
 ]);
 
-export default clerkMiddleware();
+const isProtectedRoute = createRouteMatcher([
+  '/checkout(.*)',
+  '/orders(.*)',
+  '/success(.*)',
+  '/account(.*)',
+]);
+
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) {
+    await auth.protect();
+  }
+});
 
 export const config = {
   matcher: [

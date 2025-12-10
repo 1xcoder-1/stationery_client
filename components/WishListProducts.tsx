@@ -3,7 +3,7 @@
 import useStore from "@/store";
 import { useState } from "react";
 import Container from "./Container";
-import { Heart, X, ShoppingCart, Trash2, ArrowRight, ShoppingBag } from "lucide-react";
+import { Heart, X, Trash2, ArrowRight, ShoppingBag } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { Product } from "@/sanity.types";
@@ -129,7 +129,7 @@ const WishListProducts = () => {
                                 {product?.categories && (
                                   <p className="text-sm text-gray-500 capitalize">
                                     {Array.isArray(product.categories)
-                                      ? product.categories.map((cat: any) =>
+                                      ? product.categories.map((cat) =>
                                         typeof cat === 'string' ? cat : cat?._ref || ''
                                       ).filter(Boolean).join(", ")
                                       : typeof product.categories === 'string'
@@ -289,7 +289,7 @@ const WishListProducts = () => {
               Your wishlist is empty
             </h2>
             <p className="text-gray-500 text-lg max-w-md mb-10 leading-relaxed">
-              Looks like you haven't added anything yet. Explore our collection and save your favorites for later!
+              Looks like you haven&apos;t added anything yet. Explore our collection and save your favorites for later!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">

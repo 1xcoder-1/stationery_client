@@ -14,19 +14,19 @@ import { Product } from "@/sanity.types";
 const ProductGrid = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<string>(productType[0]?.title || "Gadget");
-  const query = `*[_type == "product" && variant == $variant] | order(name asc){
+  const [selectedTab, setSelectedTab] = useState<string>(productType[0]?.title || "");
+  const query = `*[_type == "product" && $variant in variant] | order(name asc){
   ...,
   "categories": categories[]->title
 }`;
-  const params = { variant: productType.find(type => type.title === selectedTab)?.value || "gadget" };
+  const params = { variant: productType.find(type => type.title === selectedTab)?.value || productType[0]?.value };
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         // Ensure we have a valid variant parameter
-        const variantValue = productType.find(type => type.title === selectedTab)?.value || "gadget";
+        const variantValue = productType.find(type => type.title === selectedTab)?.value || productType[0]?.value;
         const fetchParams = { variant: variantValue };
         const response = await client.fetch(query, fetchParams);
         setProducts(response);

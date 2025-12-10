@@ -25,20 +25,20 @@ const ProductExtraInfo = ({ product }: { product: Product }) => {
                 ) : (
                     <div className="space-y-4">
                         <p className="text-gray-600 leading-relaxed">
-                            Discover the perfect blend of style, comfort, and durability with our latest shoe collection — designed for everyday wear, but crafted to make a statement. Whether you're navigating city streets, heading to the office, or catching up with friends, these shoes are your go-to companion for every step.
+                            Elevate your workspace with our premium stationery collection — designed for creativity, productivity, and style. Whether you're sketching your next masterpiece, organizing your daily tasks, or simply jotting down thoughts, our products are crafted to inspire.
                         </p>
                         <p className="text-gray-600 leading-relaxed">
-                            Made with premium materials and breathable lining, each pair ensures all-day comfort without compromising on design. The lightweight sole offers superior flexibility and shock absorption, reducing foot fatigue and keeping you energized throughout your day. Reinforced stitching and quality craftsmanship provide long-lasting wear, so your shoes look fresh—season after season.
+                            Made with high-quality, eco-friendly materials, each item ensures a smooth writing experience and durability. From ergonomic pens that reduce hand fatigue to notebooks with bleed-proof paper, we prioritize functionality without compromising on aesthetics.
                         </p>
                         <p className="text-gray-600 leading-relaxed">
-                            From modern minimalism to bold street-inspired looks, our collection is thoughtfully created to suit a variety of personal styles. Slip them on and experience a perfect fit, versatile design, and the confidence to move through life in comfort and style.
+                            Whether you prefer a minimalist look or vibrant, artistic designs, our stationery adapts to your unique workflow. Experience the joy of writing with tools that feel as good as they look.
                         </p>
                         <ul className="list-disc list-inside text-gray-600 space-y-1 mt-2">
-                            <li>All-day comfort with soft cushioning and ergonomic design</li>
-                            <li>Breathable materials to keep your feet cool and fresh</li>
-                            <li>Versatile style — perfect for work, weekends, or travel</li>
-                            <li>Lightweight sole for easy movement and reduced fatigue</li>
-                            <li>Premium craftsmanship with durable stitching and finishes</li>
+                            <li>Premium paper quality for smooth, bleed-free writing</li>
+                            <li>Ergonomic designs for comfortable, long-term use</li>
+                            <li>Eco-conscious materials and sustainable packaging</li>
+                            <li>Versatile range suitable for students, professionals, and artists</li>
+                            <li>Durable construction to withstand daily wear and tear</li>
                         </ul>
                     </div>
                 )}
@@ -94,27 +94,58 @@ const ProductExtraInfo = ({ product }: { product: Product }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t border-b border-gray-100"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10 mt-10"
             >
-                <div className="flex flex-col gap-2">
-                    <Recycle className="w-8 h-8 text-black" />
-                    <h4 className="font-bold text-black">Sustainable Materials</h4>
-                    <p className="text-xs text-gray-500">We believe great style shouldn't come at the planet's expense.</p>
+                {/* Feature 1 */}
+                <div className="group flex flex-col gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-colors duration-300">
+                        <Recycle className="w-7 h-7" strokeWidth={1.5} />
+                    </div>
+                    <div className="space-y-2">
+                        <h4 className="text-lg font-bold text-gray-900 group-hover:text-black transition-colors">Organic Paper</h4>
+                        <p className="text-sm text-gray-500 leading-relaxed group-hover:text-gray-600">
+                            Sourced from sustainable forests to ensure a greener planet for future generations.
+                        </p>
+                    </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                    <ShieldCheck className="w-8 h-8 text-black" />
-                    <h4 className="font-bold text-black">Warranty Included</h4>
-                    <p className="text-xs text-gray-500">Every pair comes with a hassle-free 6-month warranty.</p>
+
+                {/* Feature 2 */}
+                <div className="group flex flex-col gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-colors duration-300">
+                        <ShieldCheck className="w-7 h-7" strokeWidth={1.5} />
+                    </div>
+                    <div className="space-y-2">
+                        <h4 className="text-lg font-bold text-gray-900 group-hover:text-black transition-colors">Quality Assured</h4>
+                        <p className="text-sm text-gray-500 leading-relaxed group-hover:text-gray-600">
+                            Every item is rigorously tested to meet our high standards of durability and performance.
+                        </p>
+                    </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                    <Truck className="w-8 h-8 text-black" />
-                    <h4 className="font-bold text-black">Delivery & Shipping</h4>
-                    <p className="text-xs text-gray-500">Your shoes will be dispatched within 1-2 business days.</p>
+
+                {/* Feature 3 */}
+                <div className="group flex flex-col gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-colors duration-300">
+                        <Truck className="w-7 h-7" strokeWidth={1.5} />
+                    </div>
+                    <div className="space-y-2">
+                        <h4 className="text-lg font-bold text-gray-900 group-hover:text-black transition-colors">Fast Dispatch</h4>
+                        <p className="text-sm text-gray-500 leading-relaxed group-hover:text-gray-600">
+                            Orders are processed and shipped quickly to get your essentials to you on time.
+                        </p>
+                    </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                    <Leaf className="w-8 h-8 text-black" />
-                    <h4 className="font-bold text-black">Eco-Friendly Fabrics</h4>
-                    <p className="text-xs text-gray-500">Crafted with sustainability in mind, our shoes feature eco-friendly fabrics.</p>
+
+                {/* Feature 4 */}
+                <div className="group flex flex-col gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-colors duration-300">
+                        <Leaf className="w-7 h-7" strokeWidth={1.5} />
+                    </div>
+                    <div className="space-y-2">
+                        <h4 className="text-lg font-bold text-gray-900 group-hover:text-black transition-colors">Non-Toxic</h4>
+                        <p className="text-sm text-gray-500 leading-relaxed group-hover:text-gray-600">
+                            Safe for everyone, our products use non-toxic materials perfect for home and office.
+                        </p>
+                    </div>
                 </div>
             </motion.div>
 

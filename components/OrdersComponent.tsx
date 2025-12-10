@@ -1,6 +1,6 @@
 "use client";
 
-import { Order } from "@/sanity.types";
+import { Order, Product } from "@/sanity.types";
 import { TableBody, TableCell, TableRow } from "./ui/table";
 import {
   Tooltip,
@@ -19,7 +19,7 @@ type OrderWithProducts = Order & {
   products?: Array<{
     _key: string;
     quantity?: number;
-    product?: any; // We could make this more specific if needed
+    product?: Product; // We could make this more specific if needed
   }>;
 };
 
@@ -59,11 +59,10 @@ const OrdersComponent = ({ orders }: { orders: OrderWithProducts[] }) => {
                   <TableCell>
                     {order?.status && (
                       <span
-                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                          order.status === "paid"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-yellow-100 text-yellow-800"
-                        }`}
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${order.status === "paid"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-yellow-100 text-yellow-800"
+                          }`}
                       >
                         {order?.status.charAt(0).toUpperCase() +
                           order?.status.slice(1)}

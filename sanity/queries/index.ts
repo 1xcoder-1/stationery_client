@@ -128,7 +128,7 @@ const getOthersBlog = async (slug: string, quantity: number) => {
 };
 const getNewArrivals = async () => {
   try {
-    const query = `*[_type == 'product' && isNewArrival == true] | order(_createdAt desc) [0...8] {
+    const query = `*[_type == 'product' && isNewArrival == true] | order(_createdAt desc) [0...24] {
       ...,
       "categories": categories[]->title
     }`;

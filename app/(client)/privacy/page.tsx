@@ -2,7 +2,7 @@
 
 import Container from "@/components/Container";
 import React from "react";
-import { Shield, Lock, User, Info, FileText, Eye, Share2, Bell } from "lucide-react";
+import { Shield, Lock, User, FileText, Eye, Share2, Bell } from "lucide-react";
 import { motion } from "framer-motion";
 
 const PrivacyPage = () => {
@@ -187,7 +187,7 @@ const PrivacyPage = () => {
                 </div>
                 <p className="text-gray-600 leading-relaxed pl-16">
                   We may update this Privacy Policy from time to time. We will notify you of any changes by posting
-                  the new Privacy Policy on this page and updating the "Last Updated" date. We encourage you to
+                  the new Privacy Policy on this page and updating the &quot;Last Updated&quot; date. We encourage you to
                   review this Privacy Policy periodically for any changes.
                 </p>
               </motion.div>

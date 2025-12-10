@@ -18,19 +18,23 @@ const Testimonials = () => {
                     transition={{ duration: 0.6 }}
                     className="mb-0"
                 >
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-                        <div>
-                            <h2 className="text-4xl md:text-5xl font-bold mb-2">Community Love</h2>
-                            <p className="text-gray-500">See what our creators are making.</p>
-                        </div>
-                    </div>
-
                     <Carousel opts={{ align: "start", loop: true }} className="w-full">
+                        <div className="flex justify-between items-center mb-10">
+                            <div className="flex flex-col gap-2">
+                                <h2 className="text-4xl md:text-5xl font-bold text-black tracking-tight">Community Love</h2>
+                                <div className="w-20 h-1 bg-black rounded-full"></div>
+                            </div>
+                            <div className="flex gap-2">
+                                <CarouselPrevious className="static translate-y-0 hover:bg-black hover:text-white transition-colors w-12 h-12 rounded-full border border-gray-200" />
+                                <CarouselNext className="static translate-y-0 hover:bg-black hover:text-white transition-colors w-12 h-12 rounded-full border border-gray-200" />
+                            </div>
+                        </div>
+
                         <CarouselContent className="-ml-4">
                             {[
                                 {
                                     img: "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1974&auto=format&fit=crop",
-                                    quote: "I've never used a notebook this smooth. The paper quality is unmatched, and it makes writing a pure joy. The texture is perfect for both ink and pencil.",
+                                    quote: "I&apos;ve never used a notebook this smooth. The paper quality is unmatched, and it makes writing a pure joy. The texture is perfect for both ink and pencil.",
                                     author: "Emily Rose",
                                     role: "Illustrator"
                                 },
@@ -48,7 +52,7 @@ const Testimonials = () => {
                                 },
                                 {
                                     img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1974&auto=format&fit=crop",
-                                    quote: "My daily essential. I can't imagine starting my day without jotting down my thoughts in this journal. It's become a ritual I cherish.",
+                                    quote: "My daily essential. I can&apos;t imagine starting my day without jotting down my thoughts in this journal. It&apos;s become a ritual I cherish.",
                                     author: "Lisa Park",
                                     role: "Writer"
                                 }
@@ -70,7 +74,7 @@ const Testimonials = () => {
                                             <div className="w-3/5 bg-white rounded-3xl p-6 border border-gray-100 flex flex-col justify-between shadow-sm">
                                                 <div>
                                                     <p className="text-gray-800 font-medium leading-relaxed mb-6">
-                                                        "{item.quote}"
+                                                        &quot;{item.quote}&quot;
                                                     </p>
                                                 </div>
 
@@ -96,10 +100,6 @@ const Testimonials = () => {
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <div className="flex justify-end gap-2 mt-8">
-                            <CarouselPrevious className="static translate-y-0 hover:bg-black hover:text-white transition-colors w-12 h-12 rounded-full border-2 border-black/10" />
-                            <CarouselNext className="static translate-y-0 hover:bg-black hover:text-white transition-colors w-12 h-12 rounded-full border-2 border-black/10" />
-                        </div>
                     </Carousel>
                 </motion.div>
             </Container>

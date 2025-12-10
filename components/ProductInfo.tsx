@@ -1,7 +1,7 @@
 "use client";
 
 import { Product } from "@/sanity.types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PriceView from "./PriceView";
 import { StarIcon, Minus, Plus, ShoppingBag } from "lucide-react";
 import useStore from "@/store";
@@ -9,25 +9,58 @@ import toast from "react-hot-toast";
 import { motion } from "motion/react";
 import { PortableText } from "next-sanity";
 import FavoriteButton from "./FavoriteButton";
-
 import { useUser } from "@clerk/nextjs";
-
 import { useRouter } from "next/navigation";
 
+export interface ProductOption {
+    name: string;
+    image?: any;
+    price?: number;
+    discount?: number;
+    stock?: number;
+}
+
+interface ExtendedProduct extends Product {
+    options?: ProductOption[];
+}
+
 interface Props {
-    product: Product;
+    product: ExtendedProduct;
 }
 
 const ProductInfo = ({ product }: Props) => {
     const [quantity, setQuantity] = useState(1);
+    const [selectedOption, setSelectedOption] = useState<ProductOption | null>(null); // State for selected product option
     const { addItem } = useStore();
     const { isSignedIn } = useUser();
     const router = useRouter();
 
+    // Reset selected option when product changes
+    useEffect(() => {
+        setSelectedOption(null);
+    }, [product]);
+
+    // Helper to Determine Current Price & Discount
+    const currentPrice = selectedOption?.price || product?.price || 0;
+    const currentDiscount = selectedOption
+        ? (selectedOption.discount || 0) // If option selected, use its discount or 0.
+        : (product?.discount || 0);      // If no option, use product discount.
+    const currentStock = selectedOption?.stock !== undefined ? selectedOption.stock : (product?.stock);
+
     const handleAddToCart = () => {
         if (!product) return;
-        addItem(product, quantity);
-        toast.success(`${product.name?.substring(0, 12)}... added to cart!`);
+
+        // Create a product object with option specifics if selected
+        const productToAdd = {
+            ...product,
+            price: currentPrice,
+            discount: currentDiscount,
+            name: selectedOption ? `${product.name} - ${selectedOption.name}` : product.name,
+            _id: selectedOption ? `${product._id}-${selectedOption.name}` : product._id, // Unique ID for cart based on variant
+        };
+
+        addItem(productToAdd, quantity);
+        toast.success(`${productToAdd.name?.substring(0, 15)}... added to cart!`);
     };
 
     const incrementQuantity = () => setQuantity((prev) => prev + 1);
@@ -59,9 +92,9 @@ const ProductInfo = ({ product }: Props) => {
                     </div>
 
                     {/* Stock Status */}
-                    {product?.stock !== undefined && (
-                        <div className={`text-xs font-bold px-2 py-1 rounded-full ${product.stock > 0 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                            {product.stock > 0 ? (product.stock < 10 ? `Only ${product.stock} left` : "In Stock") : "Out of Stock"}
+                    {currentStock !== undefined && (
+                        <div className={`text-xs font-bold px-2 py-1 rounded-full ${currentStock > 0 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                            {currentStock > 0 ? (currentStock < 10 ? `Only ${currentStock} left` : "In Stock") : "Out of Stock"}
                         </div>
                     )}
                 </div>
@@ -70,8 +103,8 @@ const ProductInfo = ({ product }: Props) => {
 
                 <div className="flex items-center gap-4 mt-4">
                     <PriceView
-                        price={product?.price}
-                        discount={product?.discount}
+                        price={currentPrice}
+                        discount={currentDiscount}
                         className="text-2xl md:text-3xl font-bold text-black"
                     />
                 </div>
@@ -80,6 +113,27 @@ const ProductInfo = ({ product }: Props) => {
             <p className="text-sm text-gray-600 tracking-wide leading-relaxed border-b border-gray-100 pb-6">
                 {product?.description}
             </p>
+
+            {/* Product Options (Variants) */}
+            {product?.options && product.options.length > 0 && (
+                <div className="my-4">
+                    <p className="text-sm font-semibold mb-2 text-black">Select Option:</p>
+                    <div className="flex flex-wrap gap-2">
+                        {product.options.map((option, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setSelectedOption(option)}
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-all ${selectedOption?.name === option.name
+                                    ? "bg-black text-white border-black"
+                                    : "bg-white text-gray-700 border-gray-200 hover:border-black"
+                                    }`}
+                            >
+                                {option.name}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Quantity and Actions */}
             <div className="flex flex-col gap-4 mt-2">
@@ -100,7 +154,7 @@ const ProductInfo = ({ product }: Props) => {
                         </button>
                     </div>
                     <div className="text-sm text-gray-500">
-                        Total: <PriceView price={(product?.price || 0) * quantity} discount={product?.discount} className="text-lg font-bold text-black inline-block" />
+                        Total: <PriceView price={(currentPrice) * quantity} discount={currentDiscount} className="text-lg font-bold text-black inline-block" />
                     </div>
                 </div>
 
@@ -108,21 +162,21 @@ const ProductInfo = ({ product }: Props) => {
                     <motion.button
                         whileTap={{ scale: 0.95 }}
                         onClick={handleAddToCart}
-                        disabled={!isSignedIn || (product?.stock !== undefined && product.stock === 0)}
-                        className={`flex-1 h-12 rounded-full font-bold flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl ${isSignedIn && (product?.stock === undefined || product.stock > 0)
+                        disabled={!isSignedIn || (currentStock !== undefined && currentStock === 0)}
+                        className={`flex-1 h-12 rounded-full font-bold flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl ${isSignedIn && (currentStock === undefined || currentStock > 0)
                             ? "bg-black text-white hover:bg-gray-800"
                             : "bg-gray-200 text-gray-500 cursor-not-allowed"
                             }`}
                     >
                         <ShoppingBag size={20} />
-                        {isSignedIn ? (product?.stock === 0 ? "Out of Stock" : "Add to Cart") : "Login to Add"}
+                        {isSignedIn ? (currentStock === 0 ? "Out of Stock" : "Add to Cart") : "Login to Add"}
                     </motion.button>
 
                     <FavoriteButton product={product} showProduct={true} />
                 </div>
 
                 {/* Buy Now Button */}
-                {isSignedIn && (product?.stock === undefined || product.stock > 0) && (
+                {isSignedIn && (currentStock === undefined || currentStock > 0) && (
                     <motion.button
                         whileTap={{ scale: 0.95 }}
                         onClick={() => {

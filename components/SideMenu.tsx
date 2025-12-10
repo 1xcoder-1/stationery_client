@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { headerData } from "@/constants/data";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { logo } from "@/images";
 import Image from "next/image";
 import { Outfit } from "next/font/google";
+import { createPortal } from "react-dom";
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -20,8 +21,24 @@ interface SidebarProps {
 const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const pathname = usePathname();
   const sidebarRef = useOutsideClick<HTMLDivElement>(onClose);
+  const [mounted, setMounted] = useState(false);
 
-  return (
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  const sidebarContent = (
     <AnimatePresence>
       {isOpen && (
         <>
@@ -30,7 +47,7 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[99] bg-black/40 backdrop-blur-sm"
             onClick={onClose}
           />
           <motion.div
@@ -39,11 +56,11 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed inset-y-0 h-screen left-0 z-50 w-64 xs:w-72 sm:w-80 bg-white shadow-2xl flex flex-col"
+            className="fixed inset-y-0 h-screen left-0 z-[100] w-full sm:w-80 bg-white shadow-2xl flex flex-col"
           >
             <div className="p-4 sm:p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2">
+                <Link href="/" className="flex items-center gap-2" onClick={onClose}>
                   <Image src={logo} alt="Logo" width={30} height={30} className="w-8 h-8 object-contain" />
                   <span
                     className={`text-2xl sm:text-3xl font-bold text-black ${outfit.className}`}
@@ -56,7 +73,7 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
                   whileTap={{ scale: 0.9 }}
                   className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
                 >
-                  <X className="w-4 h-4 sm:w-5 sm:h-5 text-black hover:opacity-70" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6 text-black hover:opacity-70" />
                 </motion.button>
               </div>
             </div>
@@ -64,7 +81,7 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
             <div className="flex-1 overflow-y-auto py-4 sm:py-6">
               <nav className="px-4 sm:px-6">
                 <ul className="space-y-1 sm:space-y-2">
-                  {headerData?.map((item) => (
+                  {[{ title: "Home", href: "/" }, ...headerData]?.map((item) => (
                     <motion.li
                       key={item?.title}
                       whileHover={{ x: 5 }}
@@ -73,7 +90,7 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
                       <Link
                         href={item?.href}
                         onClick={onClose}
-                        className={`flex items-center px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 ${pathname === item?.href
+                        className={`flex items-center px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl text-base sm:text-lg font-medium transition-all duration-300 ${pathname === item?.href
                           ? "bg-black text-white font-semibold"
                           : "text-gray-700 hover:bg-gray-100 hover:text-black"
                           }`}
@@ -94,6 +111,10 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+
+  return createPortal(sidebarContent, document.body);
 };
 
 export default SideMenu;

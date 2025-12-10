@@ -45,7 +45,7 @@ const ShippingReturnsPage = () => {
                         {[
                             { icon: Truck, title: "Free Shipping", desc: "On all orders over $100" },
                             { icon: Clock, title: "Fast Delivery", desc: "2-4 business days" },
-                            { icon: RotateCcw, title: "Easy Returns", desc: "30-day return policy" },
+                            { icon: RotateCcw, title: "Easy Returns", desc: "7 day return policy" },
                             { icon: ShieldCheck, title: "Secure Package", desc: "Safe & insured delivery" },
                         ].map((feature, index) => (
                             <div key={index} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-300">
@@ -79,18 +79,20 @@ const ShippingReturnsPage = () => {
                                         <MapPin className="w-4 h-4" /> Shipping Zones
                                     </h3>
                                     <p className="text-sm">
-                                        We currently ship to the United States, Canada, and select European countries. International shipping rates vary based on destination and weight.
+                                        We currently ship to all major cities across Pakistan, including Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and Quetta.
                                     </p>
                                 </div>
 
                                 <div className="bg-white p-6 rounded-xl border border-gray-200 space-y-4">
                                     <h3 className="font-semibold text-black flex items-center gap-2">
-                                        <Clock className="w-4 h-4" /> Processing Time
+                                        <Clock className="w-4 h-4" /> Processing & Delivery Time
                                     </h3>
                                     <p className="text-sm">
-                                        Orders are processed within 1-2 business days. Orders placed on weekends or holidays will be processed the next business day.
+                                        Orders are processed within 1-2 business days. Orders placed on weekends or holidays will be processed the next business day. Standard delivery time is 3-5 working days.
                                     </p>
                                 </div>
+
+
                             </div>
                         </motion.div>
 
@@ -104,30 +106,45 @@ const ShippingReturnsPage = () => {
                             </div>
 
                             <Accordion type="single" collapsible className="w-full space-y-4">
-                                <AccordionItem value="item-1" className="border border-gray-200 rounded-xl px-4 bg-white">
-                                    <AccordionTrigger className="hover:no-underline font-medium">How do I initiate a return?</AccordionTrigger>
-                                    <AccordionContent className="text-gray-600">
-                                        To initiate a return, please visit our Returns Center or contact our support team. You will need your order number and email address to start the process.
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-2" className="border border-gray-200 rounded-xl px-4 bg-white">
-                                    <AccordionTrigger className="hover:no-underline font-medium">What is the return window?</AccordionTrigger>
-                                    <AccordionContent className="text-gray-600">
-                                        We accept returns within 30 days of delivery. Items must be unused, in original packaging, and with all tags attached.
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-3" className="border border-gray-200 rounded-xl px-4 bg-white">
-                                    <AccordionTrigger className="hover:no-underline font-medium">Are returns free?</AccordionTrigger>
-                                    <AccordionContent className="text-gray-600">
-                                        Returns are free for store credit. For refunds to the original payment method, a small return shipping fee will be deducted from your refund amount.
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-4" className="border border-gray-200 rounded-xl px-4 bg-white">
-                                    <AccordionTrigger className="hover:no-underline font-medium">How long do refunds take?</AccordionTrigger>
-                                    <AccordionContent className="text-gray-600">
-                                        Once we receive your return, please allow 3-5 business days for inspection. Refunds typically appear on your statement within 5-10 business days after approval.
-                                    </AccordionContent>
-                                </AccordionItem>
+                                {[
+                                    {
+                                        question: "I received a damaged or incorrect item. What should I do?",
+                                        answer: "We apologize for the inconvenience! Please take a picture of the damaged or incorrect item and WhatsApp it to us along with your Order ID within 24 hours of delivery. We will arrange a free replacement or a full refund immediately."
+                                    },
+                                    {
+                                        question: "What is your return & exchange policy?",
+                                        answer: "We offer a hassle free 7 day return policy. If you are not satisfied with your purchase, you can return unused and unopened items within 7 days. For change of mind returns, the customer is responsible for return shipping charges."
+                                    },
+                                    {
+                                        question: "How will I receive my refund?",
+                                        answer: "For Cash on Delivery (COD) orders, refunds are processed via Bank Transfer, EasyPaisa, or JazzCash within 3-5 business days after we receive your return. For online payments, the amount is reversed to your original payment method."
+                                    },
+                                    {
+                                        question: "Can I open the parcel before paying (Open Box Delivery)?",
+                                        answer: "Currently, our courier partners do not allow opening the parcel before payment. However, you can make an unboxing video, and if there are any issues, we guarantee a swift resolution."
+                                    },
+                                    {
+                                        question: "Do you accept returns on sale items?",
+                                        answer: "Items purchased during clearance sales or special promotions are considered Final Sale and cannot be returned or exchanged unless they arrive damaged or defective."
+                                    }
+                                ].map((item, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    >
+                                        <AccordionItem value={`item-${index}`} className="border border-gray-200 rounded-xl px-4 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                                            <AccordionTrigger className="hover:no-underline font-semibold text-gray-800 text-left py-4">
+                                                {item.question}
+                                            </AccordionTrigger>
+                                            <AccordionContent className="text-gray-600 leading-relaxed pb-4">
+                                                {item.answer}
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                    </motion.div>
+                                ))}
                             </Accordion>
 
                             <div className="bg-shop_light_pink/50 p-4 rounded-xl flex gap-3 items-start text-sm text-gray-700">

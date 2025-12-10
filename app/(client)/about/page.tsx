@@ -8,6 +8,7 @@ import { Users, PenTool, Star, Heart } from "lucide-react";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { StatCard } from "@/components/ui/stat-card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export default function AboutPage() {
     const containerRef = useRef(null);
@@ -49,7 +50,7 @@ export default function AboutPage() {
                             <div className="w-24 h-1.5 bg-black mx-auto mb-8 rounded-full" />
                             <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
                                 We believe that the right tools can unlock a universe of imagination.
-                                Welcome to a world where stationery isn't just paper and pens—it's the start of your next masterpiece.
+                                Welcome to a world where stationery isn&apos;t just paper and pens—it&apos;s the start of your next masterpiece.
                             </p>
                         </motion.div>
 
@@ -101,9 +102,9 @@ export default function AboutPage() {
                         className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-24"
                     >
                         {[
-                            { icon: Users, value: "15k+", label: "Happy Creators" },
-                            { icon: PenTool, value: "500+", label: "Unique Products" },
-                            { icon: Star, value: "4.9", label: "Average Rating" },
+                            { icon: Users, value: "200+", label: "Happy Customers" },
+                            { icon: PenTool, value: "100+", label: "Unique Products" },
+                            { icon: Star, value: "4.7", label: "Average Rating" },
                             { icon: Heart, value: "100%", label: "Made with Love" },
                         ].map((stat, index) => (
                             <motion.div
@@ -128,12 +129,10 @@ export default function AboutPage() {
                             >
                                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Mission</h2>
                                 <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                                    We strive to empower individuals to express themselves through the art of writing and creation.
-                                    In a digital world, we champion the tangible connection between hand, pen, and paper.
+                                    At Doodle Blast, we believe that every great idea starts with a blank page. Our mission is to rekindle the joy of physical creation in a digital age. We are more than just a stationery store; we are a canvas for your imagination.
                                 </p>
                                 <p className="text-gray-600 text-lg leading-relaxed">
-                                    Our mission is to provide tools that not only function perfectly but also spark joy and inspiration.
-                                    We are committed to ethical manufacturing and sustainable practices, ensuring that our legacy is one of creativity and care for the environment.
+                                    Our commitment goes beyond selling supplies; we strive to build a community of creators who value the art of unparalleled craftsmanship. We promise to deliver not just stationery, but a spark of inspiration delivered right to your doorstep, making every unboxing an experience of wonder.
                                 </p>
                             </motion.div>
                             <motion.div
@@ -177,17 +176,20 @@ export default function AboutPage() {
                             >
                                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Vision</h2>
                                 <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                                    We envision a world where creativity knows no bounds. A world where every desk is a sanctuary of ideas, and every notebook is a vessel for dreams.
+                                    We envision a world where creativity knows no bounds. A world where every desk is a sanctuary of ideas, and every notebook is a vessel for your wildest dreams.
                                 </p>
                                 <p className="text-gray-600 text-lg leading-relaxed">
-                                    By combining timeless design with modern needs, we aim to become the global standard for premium, sustainable stationery. We see a future where our products help millions of people organize their lives, achieve their goals, and tell their unique stories.
+                                    Our vision is to become the global standard for premium, sustainable, and inspiring stationery. We see a future where our products help millions of people organize their lives, achieve their goals, and tell their unique stories with style and elegance.
                                 </p>
                             </motion.div>
                         </div>
                     </div>
 
+
+
                     {/* Features Grid */}
                     <WhyChooseUs />
+
 
                     {/* Testimonials */}
                     <motion.div
@@ -197,10 +199,11 @@ export default function AboutPage() {
                         transition={{ duration: 0.6 }}
                         className="mb-0"
                     >
-                        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-                            <div>
-                                <h2 className="text-3xl md:text-4xl font-bold mb-2">Community Love</h2>
-                                <p className="text-gray-500">See what our creators are making.</p>
+                        <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-4">
+                            <div className="flex flex-col gap-2">
+                                <h2 className="text-4xl md:text-5xl font-bold text-black tracking-tight">Community Love</h2>
+                                <div className="w-20 h-1 bg-black rounded-full" />
+                                <p className="text-gray-500 text-lg mt-2">See what our creators are making.</p>
                             </div>
                         </div>
 
@@ -249,7 +252,7 @@ export default function AboutPage() {
                                                 <div className="w-3/5 bg-white rounded-3xl p-6 border border-gray-100 flex flex-col justify-between shadow-sm">
                                                     <div>
                                                         <p className="text-gray-800 font-medium leading-relaxed mb-6">
-                                                            "{item.quote}"
+                                                            &quot;{item.quote}&quot;
                                                         </p>
                                                     </div>
 
@@ -280,6 +283,63 @@ export default function AboutPage() {
                                 <CarouselNext className="static translate-y-0 hover:bg-black hover:text-white transition-colors w-12 h-12 rounded-full border-2 border-black/10" />
                             </div>
                         </Carousel>
+
+
+                        {/* FAQ Section */}
+                        <div className="mt-22 mb-10">
+                            <div className="text-center mb-12">
+                                <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                                <p className="text-gray-500 text-lg">Everything you need to know about your order and our products.</p>
+                            </div>
+                            <div className="max-w-3xl mx-auto">
+                                <Accordion type="single" collapsible className="w-full">
+                                    {[
+                                        {
+                                            question: "How long does shipping take?",
+                                            answer: "We process orders within 24 hours! For major cities in Pakistan, delivery typically takes 2-3 business days. For other remote areas, please allow 4-5 business days. You will receive a tracking link via email/SMS as soon as your order is dispatched."
+                                        },
+                                        {
+                                            question: "Do you offer Cash on Delivery (COD)?",
+                                            answer: "Yes, we offer Cash on Delivery (COD) services nationwide! You can pay for your order comfortably when it arrives at your doorstep. We also accept online payments via bank transfer for your convenience."
+                                        },
+                                        {
+                                            question: "What should I do if I receive a damaged item?",
+                                            answer: "We package our stationery with extra care, but accidents can happen during transit. If you receive a damaged product, please send us a picture on WhatsApp or email within 24 hours of delivery, and we will send a replacement immediately at no extra cost."
+                                        },
+                                        {
+                                            question: "Can I modify or cancel my order?",
+                                            answer: "We process orders very quickly to ensure fast delivery. If you need to make changes, please contact our support team within 2 hours of placing your order. Once the order has been dispatched, we cannot modify it."
+                                        },
+                                        {
+                                            question: "Do you offer wholesale or bulk discounts?",
+                                            answer: "Yes! We love supporting schools, offices, and small businesses. For bulk orders (over 20 items or corporate gifts), please contact us at support@doodleblast.com for special pricing and packages."
+                                        },
+                                        {
+                                            question: "Are your products eco-friendly?",
+                                            answer: "We are committed to sustainability. Many of our notebooks use recycled paper, and we are actively working on reducing plastic in our packaging. Look for the \"Eco-Friendly\" tag on product pages to shop our sustainable collection."
+                                        }
+                                    ].map((faq, index) => (
+                                        <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        >
+                                            <AccordionItem value={`item-${index + 1}`} className="border-b-gray-200">
+                                                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline hover:text-black transition-colors py-4 text-gray-800">
+                                                    {faq.question}
+                                                </AccordionTrigger>
+                                                <AccordionContent className="text-gray-600 text-base leading-relaxed pb-6">
+                                                    {faq.answer}
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        </motion.div>
+                                    ))}
+                                </Accordion>
+                            </div>
+                        </div>
+
                     </motion.div>
                 </motion.div>
             </Container>

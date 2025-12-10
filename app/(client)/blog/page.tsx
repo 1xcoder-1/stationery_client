@@ -6,7 +6,7 @@ const BlogPage = async () => {
   const blogs = await getAllBlogs(50);
 
   return (
-    <BlogPageContent blogs={blogs as any} />
+    <BlogPageContent blogs={blogs} />
   );
 };
 

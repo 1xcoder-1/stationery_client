@@ -8,23 +8,23 @@ const ServiceFeatures = () => {
     const features = [
         {
             icon: Recycle,
-            title: "Sustainable Materials",
-            description: "We believe great style shouldn't come at the planet's expense.",
+            title: "Eco Friendly Choices",
+            description: "Shop our Collection of recycled notebooks and Biodegradable Pens for a Greener Planet.",
         },
         {
             icon: ShieldCheck,
-            title: "Warranty Included",
-            description: "Every pair comes with a hassle-free 6-month warranty.",
+            title: "Premium Quality",
+            description: "We Hand Pick the Finest Stationery to Ensure a Superior Writing Experience.",
         },
         {
             icon: Truck,
-            title: "Delivery & Shipping",
-            description: "Your shoes will be dispatched within 1-2 business days.",
+            title: "Fast Delivery",
+            description: "Your Desk Essentials, Delivered Quickly and Reliably to Your Doorstep.",
         },
         {
             icon: Leaf,
-            title: "Eco-Friendly Fabrics",
-            description: "Crafted with sustainability in mind, our shoes feature eco-friendly fabrics.",
+            title: "Non Toxic Materials",
+            description: "Safe, Non Toxic Art Supplies Perfect for Artists and Creators of All Ages.",
         },
     ];
 

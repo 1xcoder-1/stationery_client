@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Recycle, ShieldCheck, Truck, Heart } from "lucide-react";
+import { Recycle, ShieldCheck, Truck, Heart, Leaf } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface Props {
@@ -22,23 +22,23 @@ const WhyChooseUs = ({ showTitle = true }: Props) => {
                 {[
                     {
                         icon: Recycle,
-                        title: "Eco-Conscious",
-                        desc: "Planet-friendly choices for guilt-free creativity.",
+                        title: "Eco Friendly Choices",
+                        desc: "Shop our Collection of recycled notebooks and Biodegradable Pens for a Greener Planet.",
                     },
                     {
                         icon: ShieldCheck,
                         title: "Premium Quality",
-                        desc: "Tested by artists, loved by everyone.",
+                        desc: "We Hand Pick the Finest Stationery to Ensure a Superior Writing Experience.",
                     },
                     {
                         icon: Truck,
-                        title: "Fast Shipping",
-                        desc: "Free shipping on orders over $50.",
+                        title: "Fast Delivery",
+                        desc: "Your Desk Essentials, Delivered Quickly and Reliably to Your Doorstep.",
                     },
                     {
-                        icon: Heart,
-                        title: "Community First",
-                        desc: "Join 15k+ creators in our monthly challenges.",
+                        icon: Leaf,
+                        title: "Non Toxic Materials",
+                        desc: "Safe, Non Toxic Art Supplies Perfect for Artists and Creators of All Ages.",
                     },
                 ].map((item, index) => (
                     <motion.div

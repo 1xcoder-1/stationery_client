@@ -4,14 +4,15 @@ import {
   getOthersBlog,
   getSingleBlog,
 } from "@/sanity/queries";
+import { PortableText, PortableTextBlock } from "next-sanity";
 import dayjs from "dayjs";
 import { Clock, Calendar, ChevronLeft } from "lucide-react";
-import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 import * as motion from "framer-motion/client";
+import { Blog } from "@/sanity.types";
 
 const SingleBlogPage = async ({
   params,
@@ -24,9 +25,14 @@ const SingleBlogPage = async ({
   if (!blog) return notFound();
 
   // Calculate read time (approx 200 words per minute)
-  const words = blog.body?.reduce((acc: number, block: any) => {
+  const words = blog.body?.reduce((acc: number, block: PortableTextBlock) => {
     if (block._type === "block" && block.children) {
-      return acc + block.children.reduce((childAcc: number, child: any) => childAcc + (child.text?.split(/\s+/).length || 0), 0);
+      return acc + (block.children).reduce((childAcc: number, child) => {
+        if (child._type === "span" && "text" in child && typeof (child as { text: unknown }).text === "string") {
+          return childAcc + ((child as { text: string }).text.split(/\s+/).length || 0);
+        }
+        return childAcc;
+      }, 0);
     }
     return acc;
   }, 0) || 0;
@@ -137,7 +143,7 @@ const SingleBlogPage = async ({
                   normal: ({ children }) => <p className="mb-6 text-gray-700 leading-8">{children}</p>,
                   blockquote: ({ children }) => (
                     <blockquote className="border-l-4 border-shop_dark_green pl-6 py-2 my-8 italic text-xl text-gray-800 bg-gray-50 rounded-r-lg">
-                      "{children}"
+                      &quot;{children}&quot;
                     </blockquote>
                   ),
                 }
@@ -165,7 +171,7 @@ const RelatedBlogs = async ({ slug }: { slug: string }) => {
     <div className="mt-10">
       <h3 className="text-3xl font-bold text-black mb-10">Read Next</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {blogs.map((blog: any, index: number) => (
+        {blogs.map((blog: Blog, index: number) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 20 }}

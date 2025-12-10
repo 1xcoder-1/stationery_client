@@ -2,16 +2,16 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle, Package, ArrowRight, Home } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import useStore from "@/store";
 
-const SuccessPage = () => {
+const SuccessContent = () => {
   const searchParams = useSearchParams();
   const orderNumber = searchParams.get("orderNumber");
-  const router = useRouter();
+  // const router = useRouter();
   const { resetCart } = useStore();
 
   useEffect(() => {
@@ -81,6 +81,18 @@ const SuccessPage = () => {
         </div>
       </motion.div>
     </div>
+  );
+};
+
+const SuccessPage = () => {
+  return (
+    <React.Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-shop_dark_green"></div>
+      </div>
+    }>
+      <SuccessContent />
+    </React.Suspense>
   );
 };
 

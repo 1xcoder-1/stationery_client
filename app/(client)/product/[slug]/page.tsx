@@ -73,7 +73,7 @@ const SingleProductPage = async ({
       <ProductExtraInfo product={product} />
 
       {/* Similar Products */}
-      <div className="mt-20">
+      <div className="mt-10">
         <h3 className="text-3xl font-bold text-black mb-10 text-center">Similar Products</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {similarProducts.slice(0, 4).map((item: Product) => (

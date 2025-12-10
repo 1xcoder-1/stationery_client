@@ -16,18 +16,20 @@ import Image from "next/image";
 import { Outfit } from "next/font/google";
 
 const outfit = Outfit({ subsets: ["latin"] });
+import { Order } from "@/sanity.types";
 
 interface HeaderClientProps {
-    orders: any[] | null;
+    orders: Order[] | null;
 }
 
 const HeaderClient: React.FC<HeaderClientProps> = ({ orders }) => {
     const { user } = useUser();
     const marqueeText = [
-        "Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!",
-        "Shop the latest trends with Doodle Blast",
-        "New Arrivals Daily - Check them out!",
-        "Free Shipping on Orders Over $50"
+        "Welcome to Doodle Blast - Your Ultimate Stationery Wonderland!",
+        "Cash on Delivery Available!",
+        "New Arrivals: Washi Tapes, Stickers & Notebooks Just Dropped!",
+        "Discover Premium Products - Quality Guaranteed!",
+        "Got questions? Contact us at support@doodleblast.com!",
     ];
 
     return (
@@ -39,7 +41,7 @@ const HeaderClient: React.FC<HeaderClientProps> = ({ orders }) => {
                         className="flex items-center gap-20 pr-20"
                         animate={{ x: "-100%" }}
                         transition={{
-                            duration: 50,
+                            duration: 80,
                             repeat: Infinity,
                             ease: "linear",
                         }}
@@ -47,7 +49,7 @@ const HeaderClient: React.FC<HeaderClientProps> = ({ orders }) => {
                         {[...Array(10)].map((_, i) => (
                             <React.Fragment key={i}>
                                 {marqueeText.map((text, index) => (
-                                    <span key={index} className="inline-block">{text}</span>
+                                    <span key={`${i}-${index}`} className="inline-block">{text}</span>
                                 ))}
                             </React.Fragment>
                         ))}
@@ -56,15 +58,16 @@ const HeaderClient: React.FC<HeaderClientProps> = ({ orders }) => {
                         className="flex items-center gap-20 pr-20"
                         animate={{ x: "-100%" }}
                         transition={{
-                            duration: 50,
+                            duration: 80,
                             repeat: Infinity,
                             ease: "linear",
                         }}
+                        aria-hidden="true"
                     >
                         {[...Array(10)].map((_, i) => (
                             <React.Fragment key={i + 10}>
                                 {marqueeText.map((text, index) => (
-                                    <span key={index} className="inline-block">{text}</span>
+                                    <span key={`clone-${i}-${index}`} className="inline-block">{text}</span>
                                 ))}
                             </React.Fragment>
                         ))}

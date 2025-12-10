@@ -89,13 +89,15 @@ export const productType = defineType({
     defineField({
       name: "variant",
       title: "Product Type",
-      type: "string",
+      type: "array",
+      of: [{ type: "string" }],
       options: {
         list: [
-          { title: "Gadget", value: "gadget" },
-          { title: "Appliances", value: "appliances" },
-          { title: "Refrigerators", value: "refrigerators" },
-          { title: "Others", value: "others" },
+          { title: "Best Sellers", value: "best-sellers" },
+          { title: "Portable Fans", value: "portable-fans" },
+          { title: "Stationery Sets", value: "stationery-sets" },
+          { title: "Notebooks", value: "notebooks" },
+          { title: "Art Supplies", value: "art-supplies" },
         ],
       },
     }),
@@ -112,6 +114,20 @@ export const productType = defineType({
       type: "boolean",
       description: "Toggle to show in New Arrivals section",
       initialValue: false,
+    }),
+    defineField({
+      name: "newArrivalRow",
+      title: "New Arrival Row",
+      type: "string",
+      description: "Select which row to display the product in (only for New Arrivals)",
+      options: {
+        list: [
+          { title: "Row 1", value: "row1" },
+          { title: "Row 2", value: "row2" },
+        ],
+        layout: "radio",
+      },
+      hidden: ({ document }) => !document?.isNewArrival,
     }),
     defineField({
       name: "intro",
@@ -154,6 +170,80 @@ export const productType = defineType({
             { name: "title", title: "Review Title", type: "string" },
             { name: "comment", title: "Review Description", type: "text" },
           ],
+        },
+      ],
+    }),
+    defineField({
+      name: "options",
+      title: "Product Options",
+      type: "array",
+      description: "Add options like Size (Small, Medium, Large) or Color. Each option can have an associated image that will be shown when selected.",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "name",
+              title: "Option Name",
+              type: "string",
+              description: "e.g., Small, Medium, Large, Red, Blue",
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "image",
+              title: "Option Image",
+              type: "image",
+              options: { hotspot: true },
+              description: "Optional: Image to display when this option is selected.",
+            },
+            {
+              name: "price",
+              title: "Option Price",
+              type: "number",
+              description: "Original price for this specific option.",
+              validation: (Rule) => Rule.min(0),
+            },
+            {
+              name: "discount",
+              title: "Option Discount (%)",
+              type: "number",
+              description: "Optional: Discount percentage for this option (0-100).",
+              validation: (Rule) => Rule.min(0).max(100),
+            },
+            {
+              name: "stock",
+              title: "Option Stock",
+              type: "number",
+              description: "Stock available for this specific option.",
+            },
+          ],
+          preview: {
+            select: {
+              title: "name",
+              media: "image",
+              price: "price",
+              discount: "discount",
+            },
+            prepare(selection) {
+              const { title, media, price, discount } = selection;
+              let subtitle = "Base Price";
+
+              if (price) {
+                if (discount && discount > 0) {
+                  const discountedPrice = price - (price * discount) / 100;
+                  subtitle = `Rs ${discountedPrice.toFixed(0)} (Was Rs ${price}, -${discount}%)`;
+                } else {
+                  subtitle = `Rs ${price}`;
+                }
+              }
+
+              return {
+                title: title,
+                subtitle: subtitle,
+                media: media,
+              };
+            },
+          },
         },
       ],
     }),

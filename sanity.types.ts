@@ -377,24 +377,5 @@ export type Slug = {
   source?: string;
 };
 
-
-export type Address = {
-  _id: string;
-  _type: "address";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
-  clerkUserId?: string;
-  default?: boolean;
-};
-
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | Blogcategory | Blog | Author | Order | Category | Product | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | Address;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | Blogcategory | Blog | Author | Order | Category | Product | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
