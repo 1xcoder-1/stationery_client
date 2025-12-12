@@ -139,7 +139,8 @@ const ProductItems = ({ product, index }: { product: Product; index: number }) =
                                 "px-3 py-1 text-xs font-bold text-white uppercase tracking-wide rounded-full shadow-md",
                                 product.status === "hot" && "bg-red-500",
                                 product.status === "new" && "bg-blue-500",
-                                product.status === "sale" && "bg-green-500"
+                                product.status === "sale" && "bg-green-500",
+                                product.status === "deal" && "bg-red-500"
                             )}
                         >
                             {product.status}

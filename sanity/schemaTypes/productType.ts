@@ -81,7 +81,7 @@ export const productType = defineType({
       options: {
         list: [
           { title: "New", value: "new" },
-          { title: "Hot", value: "hot" },
+          { title: "Deal", value: "deal" },
           { title: "Sale", value: "sale" },
         ],
       },
@@ -96,7 +96,7 @@ export const productType = defineType({
           { title: "Best Sellers", value: "best-sellers" },
           { title: "Portable Fans", value: "portable-fans" },
           { title: "Stationery Sets", value: "stationery-sets" },
-          { title: "Notebooks", value: "notebooks" },
+          { title: "Magnetic Notepads", value: "magnetic-notepads" },
           { title: "Art Supplies", value: "art-supplies" },
         ],
       },

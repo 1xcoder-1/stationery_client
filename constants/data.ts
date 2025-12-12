@@ -28,6 +28,6 @@ export const productType = [
   ...(showBestSellers ? [{ title: "Best Sellers", value: "best-sellers" }] : []),
   { title: "Portable Fans", value: "portable-fans" },
   { title: "Stationery Sets", value: "stationery-sets" },
-  { title: "Notebooks", value: "notebooks" },
+  { title: "Magnetic Notepads", value: "magnetic-notepads" },
   { title: "Art Supplies", value: "art-supplies" },
 ];

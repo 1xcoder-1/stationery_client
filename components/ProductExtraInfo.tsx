@@ -6,6 +6,8 @@ import { Product } from "@/sanity.types";
 import { PortableText } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 
+import AddReview from "./AddReview";
+
 const ProductExtraInfo = ({ product }: { product: Product }) => {
     return (
         <div className="flex flex-col gap-10 mt-10">
@@ -157,7 +159,9 @@ const ProductExtraInfo = ({ product }: { product: Product }) => {
                 transition={{ duration: 0.5, delay: 0.6 }}
                 className="space-y-6"
             >
-                <h3 className="text-2xl font-bold text-black">Product Reviews</h3>
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-black">Product Reviews</h3>
+                </div>
 
                 {product?.reviews && product.reviews.length > 0 ? (
                     product.reviews.map((review, index) => (
@@ -194,11 +198,10 @@ const ProductExtraInfo = ({ product }: { product: Product }) => {
                     ))
                 ) : (
                     <>
-                        {/* Review 1 */}
+                        {/* Placeholder Reviews */}
                         <div className="space-y-2 border-b border-gray-100 pb-6">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                                    {/* Placeholder Avatar */}
                                     <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="User" className="w-full h-full object-cover" />
                                 </div>
                                 <div>
@@ -211,51 +214,13 @@ const ProductExtraInfo = ({ product }: { product: Product }) => {
                             </div>
                             <h4 className="font-bold text-black text-sm">Exactly What I Was Looking For</h4>
                             <p className="text-sm text-gray-600 leading-relaxed">
-                                I recently upgraded to the LuminaTech smart home system, and it has completely transformed my living space. The ease of control through the app and voice commands has made managing my home a breeze.
-                            </p>
-                        </div>
-
-                        {/* Review 2 */}
-                        <div className="space-y-2 border-b border-gray-100 pb-6">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User" className="w-full h-full object-cover" />
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-black">Harper Jakson</p>
-                                    <p className="text-xs text-gray-500">4 months ago</p>
-                                </div>
-                            </div>
-                            <div className="flex gap-0.5">
-                                {[...Array(5)].map((_, i) => <StarIcon key={i} size={14} className="text-yellow-500 fill-yellow-500" />)}
-                            </div>
-                            <h4 className="font-bold text-black text-sm">Beautiful And Easy Use</h4>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                I've been using the TechPulse fitness tracker for the past month, and it's been a game-changer for my health and wellness journey. The accurate heart rate monitoring and step tracking keep me motivated.
-                            </p>
-                        </div>
-
-                        {/* Review 3 */}
-                        <div className="space-y-2 pb-6">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                                    <img src="https://i.pravatar.cc/150?u=a04258114e29026302d" alt="User" className="w-full h-full object-cover" />
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-black">Harper Jakson</p>
-                                    <p className="text-xs text-gray-500">5 months ago</p>
-                                </div>
-                            </div>
-                            <div className="flex gap-0.5">
-                                {[...Array(5)].map((_, i) => <StarIcon key={i} size={14} className="text-yellow-500 fill-yellow-500" />)}
-                            </div>
-                            <h4 className="font-bold text-black text-sm">I just received my new shoe</h4>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                I recently upgraded to the LuminaTech smart home system, and it has completely transformed my living space. The ease of control through the app and voice commands has made managing my home a breeze.
+                                I recently upgraded to the LuminaTech smart home system, and it has completely transformed my living space.
                             </p>
                         </div>
                     </>
                 )}
+
+                <AddReview productId={product._id} slug={product.slug?.current || ""} />
 
             </motion.div>
         </div>

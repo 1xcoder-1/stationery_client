@@ -282,10 +282,11 @@ export type Product = {
   stock?: number;
   rating?: number;
   reviewCount?: number;
-  status?: "new" | "hot" | "sale";
+  status?: "new" | "hot" | "sale" | "deal";
   variant?: "gadget" | "appliances" | "refrigerators" | "others";
   isFeatured?: boolean;
   isNewArrival?: boolean;
+  newArrivalRow?: "row1" | "row2";
   intro?: BlockContent;
   specifications?: Array<{
     key?: string;
